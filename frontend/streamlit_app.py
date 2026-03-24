@@ -232,11 +232,12 @@ with tab_query:
                     sources = result.get("sources", [])
                     if sources:
                         for i, src in enumerate(sources, 1):
+                            web_link = f'<br/><a href="{src["web_source"]}" target="_blank">🔗 Web Source</a>' if src.get("web_source") else ""
                             st.markdown(
                                 f'<div class="source-box">'
                                 f'<strong>[{i}]</strong> '
                                 f'<em>{src["filename"]}</em> '
-                                f'(score: {src["relevance_score"]:.4f})<br/>'
+                                f'(score: {src["relevance_score"]:.4f}){web_link}<br/>'
                                 f'{src["text"][:500]}{"..." if len(src["text"]) > 500 else ""}'
                                 f'</div>',
                                 unsafe_allow_html=True,

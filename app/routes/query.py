@@ -2,12 +2,14 @@ from flask import Blueprint, request, jsonify
 
 from services.retriever import RetrieverService
 from services.llm_service import LLMService
+from services.source_searcher import SourceSearcher
 
 query_bp = Blueprint("query", __name__)
 
 # Lazy-initialized singletons
 _retriever: RetrieverService = None
 _llm: LLMService = None
+_searcher: SourceSearcher = None
 
 
 def _get_retriever():
@@ -24,6 +26,13 @@ def _get_llm():
     return _llm
 
 
+def _get_searcher():
+    global _searcher
+    if _searcher is None:
+        _searcher = SourceSearcher()
+    return _searcher
+
+
 @query_bp.route("/query", methods=["POST"])
 def query_documents():
     """
@@ -38,7 +47,7 @@ def query_documents():
             "answer": "Based on [1]...",
             "question": "What is ...?",
             "sources": [
-                {"text": "...", "doc_id": "...", "filename": "...", "score": 0.85}
+                {"text": "...", "doc_id": "...", "filename": "...", "score": 0.85, "web_source": "https://..."}
             ]
         }
     """
@@ -61,6 +70,16 @@ def query_documents():
         chunks = _get_retriever().search(question, top_k=top_k)
     except Exception as e:
         return jsonify({"error": f"Retrieval failed: {str(e)}"}), 500
+        
+    # 1.5. Find web sources using DuckDuckGo agent
+    try:
+        searcher = _get_searcher()
+        for chunk in chunks:
+            # We call find_source to search the internet for the specific chunk
+            chunk["web_source"] = searcher.find_source(chunk["text"])
+    except Exception as e:
+        print(f"Web search failed: {e}")
+        # non-fatal, continue
 
     # 2. Generate answer using LLM
     try:
@@ -76,6 +95,7 @@ def query_documents():
             "filename": chunk["filename"],
             "chunk_index": chunk["chunk_index"],
             "relevance_score": chunk["score"],
+            "web_source": chunk.get("web_source", "")
         }
         for chunk in chunks
     ]

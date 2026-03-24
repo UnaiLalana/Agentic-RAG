@@ -23,19 +23,28 @@ def train_model():
         print(f"Error: 'clase' column not found in dataset! Columns: {df.columns}")
         return
         
-    # For demonstration/proof within this agent run, we sample to avoid multi-hour training.
-    # Since the dataset is 215MB, a full fine-tuning run would take too long for agent execution.
-    print("Sampling a small subset for rapid training verification...")
-    df = df.sample(n=min(500, len(df)), random_state=42)
-
-    X_train, X_val, y_train, y_val = train_test_split(df['texto'], df['clase'], test_size=0.2, random_state=42)
+    # Instead of random sampling 500 rows which could be all humans, let's balance and expand the classes.
+    print("Balancing classes and expanding sample for better training...")
+    
+    # Separate balancing
+    human_df = df[df['clase'] == 0]
+    ai_df = df[df['clase'] == 1]
+    
+    # Sample up to 2000 per class to keep it relatively fast but robust enough
+    n_samples = min(2000, len(human_df), len(ai_df))
+    df_balanced = pd.concat([
+        human_df.sample(n=n_samples, random_state=42),
+        ai_df.sample(n=n_samples, random_state=42)
+    ]).sample(frac=1, random_state=42) # shuffle again
+    
+    X_train, X_val, y_train, y_val = train_test_split(df_balanced['texto'], df_balanced['clase'], test_size=0.2, random_state=42, stratify=df_balanced['clase'])
     
     model_name = "bert-base-uncased"
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     
-    # max_length reduced to 128 to speed up this sample run
-    train_dataset = BERTDataset(X_train, y_train, tokenizer, max_length=128) 
-    val_dataset = BERTDataset(X_val, y_val, tokenizer, max_length=128)
+    # Increased max_length to capture more text content
+    train_dataset = BERTDataset(X_train, y_train, tokenizer, max_length=256) 
+    val_dataset = BERTDataset(X_val, y_val, tokenizer, max_length=256)
     
     train_loader = DataLoader(train_dataset, batch_size=8, shuffle=True)
     val_loader = DataLoader(val_dataset, batch_size=8)
@@ -51,10 +60,14 @@ def train_model():
     ).to(device)
     
     optimizer = AdamW(model.parameters(), lr=2e-5)
-    epochs = 1
+    epochs = 3
     total_steps = len(train_loader) * epochs
     scheduler = get_linear_schedule_with_warmup(optimizer, num_warmup_steps=int(0.1*total_steps), num_training_steps=total_steps)
-    criterion = torch.nn.CrossEntropyLoss()
+    
+    # Add class weights explicitly in the loss function just in case
+    # Since we are already perfectly balanced (50/50), weights are 1.0, 1.0 but this is good practice
+    class_weights = torch.tensor([1.0, 1.0]).to(device)
+    criterion = torch.nn.CrossEntropyLoss(weight=class_weights)
     
     print("Starting training...")
     for epoch in range(epochs):

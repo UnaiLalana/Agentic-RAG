@@ -14,7 +14,7 @@ class LLMService:
     SYSTEM_PROMPT = (
         "You are a helpful document assistant. Answer the user's question "
         "based ONLY on the provided context passages. "
-        "Cite the source passages using their reference numbers [1], [2], etc. "
+        "Cite the source passages using their reference numbers [1], [2], etc., and include their Web URL if available. "
         "If the context does not contain enough information to answer the question, "
         'say "I don\'t have enough information in the provided documents to answer this question."'
     )
@@ -32,7 +32,7 @@ class LLMService:
 
         Args:
             question: The user's question.
-            context_chunks: Retrieved chunks with text, filename, and score.
+            context_chunks: Retrieved chunks with text, filename, score, and web_source.
 
         Returns:
             The generated answer text.
@@ -70,13 +70,17 @@ class LLMService:
         question: str,
         context_chunks: List[Dict[str, Any]],
     ) -> str:
-        """Build the full prompt with system instructions, context, and question."""
+        """Build the full prompt with system instructions, context, web sources, and question."""
         # Format context passages
         context_parts = []
         for i, chunk in enumerate(context_chunks, 1):
             source = chunk.get("filename", "unknown")
             text = chunk.get("text", "")
-            context_parts.append(f"[{i}] (Source: {source})\n{text}")
+            web = chunk.get("web_source", "")
+            if web:
+                context_parts.append(f"[{i}] (Source: {source}, Web: {web})\n{text}")
+            else:
+                context_parts.append(f"[{i}] (Source: {source})\n{text}")
 
         context_str = "\n\n".join(context_parts)
 
