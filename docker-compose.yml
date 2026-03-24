@@ -1,0 +1,130 @@
+
+services:
+  # ──────────────────────────────────────────────
+  # MinIO Object Store — stores raw PDF/DOCX files
+  # ──────────────────────────────────────────────
+  minio:
+    image: minio/minio:latest
+    container_name: rag-minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio_data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  # MinIO bucket initializer
+  minio-init:
+    image: minio/mc:latest
+    container_name: rag-minio-init
+    depends_on:
+      minio:
+        condition: service_healthy
+    entrypoint: >
+      /bin/sh -c "
+      mc alias set local http://minio:9000 minioadmin minioadmin;
+      mc mb local/documents --ignore-existing;
+      echo 'Bucket ready';
+      "
+
+  # ──────────────────────────────────────────────
+  # ChromaDB — vector search backend
+  # ──────────────────────────────────────────────
+  chromadb:
+    image: chromadb/chroma:latest
+    container_name: rag-chromadb
+    ports:
+      - "8000:8000"
+    volumes:
+      - chroma_data:/chroma/chroma
+    environment:
+      - ANONYMIZED_TELEMETRY=FALSE
+
+
+  # ──────────────────────────────────────────────
+  # LLM Server — llama.cpp serving quantized model
+  # ──────────────────────────────────────────────
+  llm:
+    image: ghcr.io/ggml-org/llama.cpp:server
+    container_name: rag-llm
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./models:/models
+    command: >
+      -m /models/Mistral-7B-Instruct-v0.3-Q4_K_M.gguf
+      --host 0.0.0.0
+      --port 8080
+      -c 4096
+      -ngl 0
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 60s
+
+  # ──────────────────────────────────────────────
+  # Flask REST API — central orchestration layer
+  # ──────────────────────────────────────────────
+  flask-app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    container_name: rag-flask
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./models:/models
+      - ./pretrained_transformer.py:/pretrained_transformer.py
+    environment:
+      - MINIO_ENDPOINT=minio:9000
+      - MINIO_ACCESS_KEY=minioadmin
+      - MINIO_SECRET_KEY=minioadmin
+      - MINIO_BUCKET=documents
+      - CHROMA_HOST=chromadb
+      - CHROMA_PORT=8000
+      - LLM_URL=http://llm:8080
+      - FLASK_ENV=production
+    depends_on:
+      minio:
+        condition: service_healthy
+      chromadb:
+        condition: service_started
+      llm:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+
+  # ──────────────────────────────────────────────
+  # Streamlit Frontend (Bonus +5%)
+  # ──────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: rag-frontend
+    ports:
+      - "8501:8501"
+    environment:
+      - API_URL=http://flask-app:5000
+    depends_on:
+      flask-app:
+        condition: service_healthy
+
+volumes:
+  minio_data:
+  chroma_data:

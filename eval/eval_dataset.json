@@ -1,0 +1,44 @@
+[
+    {
+        "id": 1,
+        "question": "Which embeddings obtain better results dense or sparse?",
+        "expected_answer": "Dense embeddings obtain better results than sparse embeddings.",
+        "source_doc": "PAN2025.pdf",
+        "source_passage": "Dense embeddings obtain a +5.4 points absolute advantage on the held-out test set."
+    },
+    {
+        "id": 2,
+        "question": "What is the model with highest computational cost?",
+        "expected_answer": "The model with the highest computational cost is the Bert model.",
+        "source_doc": "PAN2025_Assignment_2.pdf",
+        "source_passage": "While BERT delivers the highest accuracy, its deployment cost is immense: it requires 3.5GB of VRAM and infers significantly slower than the Logistic Regression model."
+    },
+    {
+        "id": 3,
+        "question": "What preprocessing is applied to the texts?",
+        "expected_answer": "All text is lower-cased, non-alphabetic characters are removed, English stop-words (NLTK) are discarded, and tokens are lemmatised with WordNetLemmatizer.",
+        "source_doc": "PAN2025.pdf",
+        "source_passage": "Preprocessing. All text is lower-cased, non-alphabetic characters are removed, English stop-words (NLTK) are discarded, and tokens are lemmatised with WordNetLemmatizer."
+    },
+    {
+        "id": 4,
+        "question": "What Bert model is used?",
+        "expected_answer": "The Bert model used is the BERT-base-uncased model.",
+        "source_doc": "PAN2025_Assignment_2.pdf",
+        "source_passage": "Transformer (BERT): Wefine-tune the pre-trained bert-base-uncased model from Hugging Face."
+    },
+    {
+        "id": 5,
+        "question": "Who are the authors of the paper?",
+        "expected_answer": "The authors of the paper are Eneko Isturitz Sesma, Lander Jimenez Nadales and Unai Lalana Morales.",
+        "source_doc": "PAN2025_Assignment_2.pdf",
+        "source_passage": "Eneko Isturitz Sesma, Lander Jimenez Nadales Unai Lalana Morales"
+    },
+    {
+        "id": 6,
+        "question": "Which metric is used for evaluation?",
+        "expected_answer": "The metric used for evaluation is a composite metric created for this task.",
+        "source_doc": "PAN2025_Assignment_2.pdf",
+        "source_passage": "AN 2025 official scoring scheme, the primary optimisation metric is a composite score: Score = 1/5 AUC+(1−Brier)+F1 +F0.5u +c@1 where c@1rewardsabstention when the system is genuinely uncertain (uncertain band ±0.05 around θ=0.5) [2]. Hyperparam eter grid search is performed over C ∈ {0.01,0.1,1} (sparse) and C ∈ {0.01,0.1,1,10} (dense), all via GridSearchCV."
+    }
+]

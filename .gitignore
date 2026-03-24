@@ -1,0 +1,38 @@
+# Model weights (4-8 GB GGUF files)
+models/*.gguf
+models/*.bin
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Environment
+.env
+venv/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker volumes
+minio_data/
+chroma_data/
+db_data/
+
+# Temporary
+*.tmp
+*.log
+
+data/dataset_truncated.csv
