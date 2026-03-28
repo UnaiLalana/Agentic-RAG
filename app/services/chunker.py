@@ -2,43 +2,37 @@ from typing import List
 from config import Config
 
 
+import re
+
 def recursive_split(text: str, chunk_size: int = None, chunk_overlap: int = None) -> List[str]:
     """
-    Recursive text chunking strategy.
-
-    Splits text hierarchically:
-    1. First by double newlines (paragraphs)
-    2. Then by single newlines (lines)
-    3. Then by sentences ('. ')
-    4. Finally by words if still too large
-
-    Each chunk has configurable overlap with the next chunk.
-
-    Args:
-        text: The full document text.
-        chunk_size: Maximum characters per chunk.
-        chunk_overlap: Number of overlapping characters between chunks.
-
-    Returns:
-        List of text chunks.
+    Chunking by paragraphs as requested.
+    This replaces the character-limit recursive chunking with strict semantic paragraph chunks.
+    It removes single newlines (hard wraps common in PDFs) but preserves double newlines as paragraph boundaries.
     """
-    if chunk_size is None:
-        chunk_size = Config.CHUNK_SIZE
-    if chunk_overlap is None:
-        chunk_overlap = Config.CHUNK_OVERLAP
-
-    # Separators in order of preference
-    separators = ["\n\n", "\n", ". ", " "]
-
-    chunks = _split_recursive(text, separators, chunk_size)
-
-    # Add overlap between chunks
-    if chunk_overlap > 0 and len(chunks) > 1:
-        chunks = _add_overlap(chunks, chunk_overlap)
-
-    # Filter out empty chunks
-    chunks = [c.strip() for c in chunks if c.strip()]
-
+    # Split text strictly into blocks by double newlines
+    blocks = re.split(r'\n\s*\n', text)
+    
+    # Fallback for messy PDFs: if blocks are still huge, try to aggressively split by period+newline
+    refined_blocks = []
+    for block in blocks:
+        if len(block) > 1000 and '\n' in block:
+            # Look for lines ending with a period (or !?) as potential paragraph breaks
+            sub_blocks = re.split(r'(?<=[.!?])\s*\n', block)
+            refined_blocks.extend(sub_blocks)
+        else:
+            refined_blocks.append(block)
+            
+    chunks = []
+    for block in refined_blocks:
+        # Reflow the text inside the paragraph (turn single newlines into spaces)
+        reflowed = re.sub(r'(?<!\n)\n(?!\n)', ' ', block).strip()
+        
+        # We optionally split massive paragraphs if they are ridiculously huge, 
+        # but the request was "chunking por parrafos" so we keep them intact.
+        if reflowed:
+            chunks.append(reflowed)
+            
     return chunks
 
 

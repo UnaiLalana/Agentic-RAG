@@ -67,19 +67,26 @@ def query_documents():
 
     # 1. Retrieve relevant chunks
     try:
-        chunks = _get_retriever().search(question, top_k=top_k)
+        # Simple intent routing: if the user asks for plagiarized or internet-copied content,
+        # explicitly fetch chunks that have an internet source_url.
+        question_lower = question.lower()
+        plagiarism_keywords = ["copi", "pegad", "plagio", "internet", "copy", "paste", "plagiar", "fuente", "web"]
+        is_plagiarism_query = any(k in question_lower for k in plagiarism_keywords)
+
+        if is_plagiarism_query:
+            chunks = _get_retriever().get_chunks_with_sources(top_k=top_k)
+            # If nothing found, fallback to semantic search
+            if not chunks:
+                chunks = _get_retriever().search(question, top_k=top_k)
+        else:
+            chunks = _get_retriever().search(question, top_k=top_k)
+
     except Exception as e:
         return jsonify({"error": f"Retrieval failed: {str(e)}"}), 500
         
-    # 1.5. Find web sources using DuckDuckGo agent
-    try:
-        searcher = _get_searcher()
-        for chunk in chunks:
-            # We call find_source to search the internet for the specific chunk
-            chunk["web_source"] = searcher.find_source(chunk["text"])
-    except Exception as e:
-        print(f"Web search failed: {e}")
-        # non-fatal, continue
+    # 1.5. Propagate web sources from ChromaDB (already found during upload)
+    for chunk in chunks:
+        chunk["web_source"] = chunk.get("source_url", "")
 
     # 2. Generate answer using LLM
     try:

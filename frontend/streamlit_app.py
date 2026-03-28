@@ -232,13 +232,13 @@ with tab_query:
                     sources = result.get("sources", [])
                     if sources:
                         for i, src in enumerate(sources, 1):
-                            web_link = f'<br/><a href="{src["web_source"]}" target="_blank">🔗 Web Source</a>' if src.get("web_source") else ""
+                            web_link = f'<div style="margin-top: 5px;"><a href="{src["web_source"]}" target="_blank" style="color: #E53935; text-decoration: none;">🌐 <strong>Source found on Internet:</strong> {src["web_source"]}</a></div>' if src.get("web_source") else '<div style="margin-top: 5px; color: #43A047;">📄 <em>Internal Document Only (No internet source detected)</em></div>'
                             st.markdown(
                                 f'<div class="source-box">'
-                                f'<strong>[{i}]</strong> '
-                                f'<em>{src["filename"]}</em> '
-                                f'(score: {src["relevance_score"]:.4f}){web_link}<br/>'
-                                f'{src["text"][:500]}{"..." if len(src["text"]) > 500 else ""}'
+                                f'<strong>[{i}] Local Document:</strong> <em>{src["filename"]}</em> '
+                                f'<span style="color: #888; font-size: 0.8em;">(Relevance: {src["relevance_score"]:.4f})</span>'
+                                f'{web_link}'
+                                f'<div style="margin-top: 8px; color: #333;"><strong>Excerpt:</strong><br/>{src["text"][:500]}{"..." if len(src["text"]) > 500 else ""}</div>'
                                 f'</div>',
                                 unsafe_allow_html=True,
                             )

@@ -1,6 +1,7 @@
 # Model weights (4-8 GB GGUF files)
 models/*.gguf
 models/*.bin
+models/*.pt
 
 # Python
 __pycache__/
@@ -36,3 +37,4 @@ db_data/
 *.log
 
 data/dataset_truncated.csv
+

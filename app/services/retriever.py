@@ -138,6 +138,42 @@ class RetrieverService:
 
         return chunks
 
+    def get_chunks_with_sources(
+        self,
+        top_k: int = 5,
+        doc_id: Optional[str] = None,
+    ) -> List[Dict[str, Any]]:
+        """
+        Directly fetch chunks that have an internet source_url.
+        """
+        where_filter = {"source_url": {"$ne": ""}}
+        if doc_id:
+            where_filter = {"$and": [{"doc_id": {"$eq": doc_id}}, {"source_url": {"$ne": ""}}]}
+            
+        try:
+            results = self.collection.get(
+                where=where_filter,
+                include=["documents", "metadatas"],
+                limit=top_k
+            )
+        except Exception as e:
+            print(f"[Retriever] get_chunks_with_sources error: {e}")
+            return []
+            
+        chunks = []
+        if results and results.get("documents"):
+            for i in range(len(results["documents"])):
+                chunks.append({
+                    "text": results["documents"][i],
+                    "doc_id": results["metadatas"][i]["doc_id"],
+                    "filename": results["metadatas"][i]["filename"],
+                    "chunk_index": results["metadatas"][i]["chunk_index"],
+                    "ai_probability": results["metadatas"][i].get("ai_probability", 0.0),
+                    "source_url": results["metadatas"][i].get("source_url", ""),
+                    "score": 1.0,  # Exact metadata match
+                })
+        return chunks
+
     def delete_document(self, doc_id: str):
         """Remove all chunks for a document from ChromaDB."""
         try:

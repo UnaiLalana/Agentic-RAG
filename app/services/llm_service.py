@@ -14,9 +14,10 @@ class LLMService:
     SYSTEM_PROMPT = (
         "You are a helpful document assistant. Answer the user's question "
         "based ONLY on the provided context passages. "
-        "Cite the source passages using their reference numbers [1], [2], etc., and include their Web URL if available. "
-        "If the context does not contain enough information to answer the question, "
-        'say "I don\'t have enough information in the provided documents to answer this question."'
+        "Each context passage includes the LOCAL DOCUMENT it came from, and if found online, an INTERNET SOURCE URL. "
+        "When answering, use the reference numbers (e.g., [1]) to cite passages. "
+        "Clearly differentiate between the internal document name and the external internet URL. "
+        "NEVER invent or hallucinate URLs or titles that are not explicitly provided in the context."
     )
 
     def __init__(self):
@@ -78,9 +79,9 @@ class LLMService:
             text = chunk.get("text", "")
             web = chunk.get("web_source", "")
             if web:
-                context_parts.append(f"[{i}] (Source: {source}, Web: {web})\n{text}")
+                context_parts.append(f"[{i}] LOCAL DOCUMENT: {source}\nINTERNET SOURCE: {web}\nTEXT EXCERPT:\n{text}")
             else:
-                context_parts.append(f"[{i}] (Source: {source})\n{text}")
+                context_parts.append(f"[{i}] LOCAL DOCUMENT: {source}\nINTERNET SOURCE: None found\nTEXT EXCERPT:\n{text}")
 
         context_str = "\n\n".join(context_parts)
 

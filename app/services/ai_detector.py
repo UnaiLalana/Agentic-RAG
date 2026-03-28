@@ -53,7 +53,8 @@ class AIDetector:
         inputs = self.tokenizer(
             text,
             truncation=True,
-            max_length=512,
+            padding="max_length",
+            max_length=256,
             return_tensors="pt"
         )
         

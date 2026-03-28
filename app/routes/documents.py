@@ -98,8 +98,8 @@ def upload_document():
     for chunk in chunks:
         prob = detector.predict_probability(chunk)
         ai_probs.append(prob)
-        # Only search if probability is high (e.g. > 0.5) to avoid excessive web searches
-        if prob > 0.5:
+        # Only search if probability is low (e.g. <= 0.2) to find sources for authentic human text
+        if prob <= 0.2:
             source = searcher.find_source(chunk)
             source_urls.append(source)
         else:
