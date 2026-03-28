@@ -172,7 +172,93 @@ class SourceSearcher:
                 reverse=True
             )
 
-        return ranked[0]
+        top1 = ranked[0]
+
+        if top1["score"] < 12:
+            logging.info(
+                f"[SourceSearcher] Rejected weak top1: {top1['url']} "
+                f"(score={top1['score']:.2f}, hits={top1['hits']}, best_rank={top1['best_rank']})"
+            )
+            return None
+
+        return top1
+
+    def _is_valid_candidate(self, sentence: str, title: str, body: str) -> bool:
+        """
+        Hard filter to reject unrelated DDG fallback results.
+        A candidate is valid only if it shows meaningful overlap with the target sentence.
+        """
+        candidate_text = f"{title} {body}"
+        norm_sentence = self._normalize_text(sentence)
+        norm_candidate = self._normalize_text(candidate_text)
+
+        if not norm_candidate:
+            return False
+
+        sentence_words = norm_sentence.split()
+        if len(sentence_words) < 5:
+            return False
+
+        # 1) Strong exact subphrase match (5-7 words)
+        if self._has_exact_subphrase_match(sentence_words, norm_candidate):
+            return True
+
+        # 2) Multiple 4-gram overlaps
+        overlap_4grams = self._quick_overlap_score(norm_sentence, norm_candidate)
+        if overlap_4grams >= 2:
+            return True
+
+        # 3) Fallback: enough word overlap ratio on informative words
+        ratio = self._word_overlap_ratio(norm_sentence, norm_candidate)
+        if ratio >= 0.45:
+            return True
+
+        return False
+
+
+    def _has_exact_subphrase_match(self, sentence_words, normalized_candidate_text: str) -> bool:
+        """
+        Returns True if any exact 5-7 word chunk from the sentence appears in the candidate snippet.
+        This is a strong signal that the result is actually related.
+        """
+        # Try 7 words, then 6, then 5
+        for n in (7, 6, 5):
+            if len(sentence_words) < n:
+                continue
+
+            for i in range(len(sentence_words) - n + 1):
+                chunk = " ".join(sentence_words[i:i+n])
+                if chunk in normalized_candidate_text:
+                    return True
+
+        return False
+
+
+    def _word_overlap_ratio(self, normalized_sentence: str, normalized_candidate_text: str) -> float:
+        """
+        Measures overlap of informative words between sentence and candidate snippet.
+        """
+        stopwords = {
+            "the", "a", "an", "and", "or", "but", "if", "then", "than", "that", "this",
+            "these", "those", "is", "are", "was", "were", "be", "been", "being",
+            "to", "of", "in", "on", "for", "with", "by", "as", "at", "from", "into",
+            "it", "its", "their", "them", "they", "you", "your", "we", "our",
+            "can", "could", "would", "should", "may", "might", "will", "shall",
+            "have", "has", "had", "do", "does", "did", "not", "no", "yes",
+            "such", "many", "more", "most", "already", "part", "uses", "use"
+        }
+
+        sentence_words = [
+            w for w in normalized_sentence.split()
+            if len(w) >= 4 and w not in stopwords
+        ]
+        candidate_words = set(normalized_candidate_text.split())
+
+        if not sentence_words:
+            return 0.0
+
+        matches = sum(1 for w in sentence_words if w in candidate_words)
+        return matches / len(sentence_words)
 
     def _build_queries(self, sentence: str):
         """

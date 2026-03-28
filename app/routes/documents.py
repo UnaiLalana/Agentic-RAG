@@ -99,7 +99,7 @@ def upload_document():
         prob = detector.predict_probability(chunk)
         ai_probs.append(prob)
         # Only search if probability is low (e.g. <= 0.2) to find sources for authentic human text
-        if prob <= 0.2:
+        if prob <= 0.5:
             source = searcher.find_source(chunk)
             source_urls.append(source)
         else:
