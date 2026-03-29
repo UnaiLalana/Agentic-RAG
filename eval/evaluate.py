@@ -71,7 +71,7 @@ def run_evaluation(api_url: str, dataset_path: str, output_path: str):
         try:
             resp = requests.post(
                 f"{api_url}/query",
-                json={"question": question, "top_k": 10},
+                json={"question": question, "top_k": 5},
                 timeout=600,
             )
             resp.raise_for_status()

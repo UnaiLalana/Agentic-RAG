@@ -1,0 +1,2 @@
+best_pooling,val_composite,test_composite,test_f1_macro,test_roc_auc,training_time_s,inference_time_s,model_path
+mean,0.8608,0.8534,0.8303,0.8824,11525.1,191.373,../results/bert_best_model.pt

@@ -56,7 +56,7 @@ class LLMService:
                     "top_p": 0.9,
                     "stop": ["</s>", "\n\nQuestion:", "\n\nContext:"],
                 },
-                timeout=120,
+                timeout=300,
             )
             response.raise_for_status()
             result = response.json()

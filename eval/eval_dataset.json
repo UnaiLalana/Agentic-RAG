@@ -40,5 +40,33 @@
         "expected_answer": "The metric used for evaluation is a composite metric created for this task.",
         "source_doc": "PAN2025_Assignment_2.pdf",
         "source_passage": "AN 2025 official scoring scheme, the primary optimisation metric is a composite score: Score = 1/5 AUC+(1−Brier)+F1 +F0.5u +c@1 where c@1rewardsabstention when the system is genuinely uncertain (uncertain band ±0.05 around θ=0.5) [2]. Hyperparam eter grid search is performed over C ∈ {0.01,0.1,1} (sparse) and C ∈ {0.01,0.1,1,10} (dense), all via GridSearchCV."
+    },
+    {
+        "id": 7,
+        "question": "What was the data split por the task?",
+        "expected_answer": "The data split was 80% of the data for train and 20% for test.",
+        "source_doc": "PAN2025.pdf",
+        "source_passage": "Subsequently, the dataset was partitioned using an 80/20 train–test split, where 80% of the data was allocated for model training and 20% was reserved for final testing."
+    },
+    {
+        "id": 8,
+        "question": "Did adding bigrams improve the score?",
+        "expected_answer": "Yes, adding biframs improved the score by 1.7 points.",
+        "source_doc": "PAN2025.pdf",
+        "source_passage": "Adding bigrams improves the composite score by +1.7 points, confirming that short phrasal patterns (e.g. notably, geq, leq) are discriminative cues between AI and human text."
+    },
+    {
+        "id": 9,
+        "question": "What was the architecture of the tested LSTM?",
+        "expected_answer": "The LSTM had an embedding layer of dimension 100, a Long Short-Term Memory network (hidden_dim=128), and a fully connected classification head.",
+        "source_doc": "PAN2025_Assignment_2.pdf",
+        "source_passage": "Recurrent Model (LSTM): A custom PyTorch implementation featuring an embedding layer (dim=100), a Long Short-Term Memory network (hidden_dim=128), and a fully connected classification head."
+    },
+    {
+        "id": 10,
+        "question": "How much data did the LSTM need to reach bert performance?",
+        "expected_answer": "The LSTM requires significantly more data to approach bert performance",
+        "source_doc": "PAN2025_Assignment_2.pdf",
+        "source_passage": "Conversely, the LSTM requires significantly more data to approach bert performance, confirming that training recurrent models from scratch is data-hungry."
     }
 ]

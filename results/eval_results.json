@@ -1,21 +1,21 @@
 {
-  "timestamp": "2026-03-23T18:07:53.202426",
-  "num_questions": 6,
+  "timestamp": "2026-03-29T10:09:17.865085",
+  "num_questions": 10,
   "metrics": {
     "k=1": {
-      "hit_rate": 0.6667,
-      "mrr": 0.6667,
-      "precision_at_k": 0.6667
+      "hit_rate": 0.9,
+      "mrr": 0.9,
+      "precision_at_k": 0.9
     },
     "k=3": {
-      "hit_rate": 0.8333,
-      "mrr": 0.7222,
-      "precision_at_k": 0.7222
+      "hit_rate": 1.0,
+      "mrr": 0.9333,
+      "precision_at_k": 0.7333
     },
     "k=5": {
-      "hit_rate": 0.8333,
-      "mrr": 0.7222,
-      "precision_at_k": 0.7333
+      "hit_rate": 1.0,
+      "mrr": 0.9333,
+      "precision_at_k": 0.72
     }
   },
   "qualitative_analysis": {
@@ -28,7 +28,7 @@
           "PAN2025.pdf",
           "PAN2025.pdf"
         ],
-        "generated_answer_preview": "Based on the provided context, the dense embeddings (Word2Vec) obtain better results compared to the sparse embeddings (TF-IDF). This is evident from the comparison of the test scores in the tables [1",
+        "generated_answer_preview": "Based on the provided context, the dense embeddings (Word2Vec) obtain better results, as shown in the comparison between sparse (TF-IDF) and dense (Word2Vec) feature representations in the PAN2025 doc",
         "explanation": "The correct source document was retrieved in the top-3 results."
       },
       {
@@ -37,9 +37,9 @@
         "retrieved_sources": [
           "PAN2025_Assignment_2.pdf",
           "PAN2025_Assignment_2.pdf",
-          "PAN2025_Assignment_2.pdf"
+          "PAN2025.pdf"
         ],
-        "generated_answer_preview": "The LLM took too long to respond. Please try a shorter question.",
+        "generated_answer_preview": "The model with the highest computational cost is BERT, as mentioned in the context passage [4].",
         "explanation": "The correct source document was retrieved in the top-3 results."
       },
       {
@@ -47,28 +47,14 @@
         "expected_source": "PAN2025.pdf",
         "retrieved_sources": [
           "PAN2025.pdf",
-          "PAN2025.pdf",
+          "PAN2025_Assignment_2.pdf",
           "PAN2025.pdf"
         ],
-        "generated_answer_preview": "The LLM took too long to respond. Please try a shorter question.",
+        "generated_answer_preview": "The preprocessing applied to the texts includes:\n\n1. All text is lower-cased [1].\n2. Non-alphabetic characters are removed [1].\n3. English stop-words (NLTK) are discarded [1].\n4. The text is lemmatize",
         "explanation": "The correct source document was retrieved in the top-3 results."
       }
     ],
-    "failure_cases": [
-      {
-        "question": "Which metric is used for evaluation?",
-        "expected_source": "PAN2025_Assignment_2.pdf",
-        "retrieved_sources": [
-          "PAN2025.pdf",
-          "PAN2025.pdf",
-          "PAN2025.pdf",
-          "PAN2025.pdf",
-          "PAN2025.pdf"
-        ],
-        "generated_answer_preview": "The LLM took too long to respond. Please try a shorter question.",
-        "explanation": "The expected source document was not found in the top-5 results."
-      }
-    ]
+    "failure_cases": []
   },
   "detailed_results": [
     {
@@ -77,77 +63,47 @@
       "expected_answer": "Dense embeddings obtain better results than sparse embeddings.",
       "source_doc": "PAN2025.pdf",
       "source_passage": "Dense embeddings obtain a +5.4 points absolute advantage on the held-out test set.",
-      "generated_answer": "Based on the provided context, the dense embeddings (Word2Vec) obtain better results compared to the sparse embeddings (TF-IDF). This is evident from the comparison of the test scores in the tables [1], [2], [7], and [8]. In these tables, the dense Word2Vec model consistently achieves higher scores than the sparse TF-IDF model. For example, in table [1], the LR+Word2Vec (dense) model has a test score of 0.910, while the LR+TF-IDF (sparse) model has a test score of 0.856. Similarly, in table [7], the dense Word2Vec model has a test score of 0.910, while the sparse TF-IDF model has a test score of 0.856.",
+      "generated_answer": "Based on the provided context, the dense embeddings (Word2Vec) obtain better results, as shown in the comparison between sparse (TF-IDF) and dense (Word2Vec) feature representations in the PAN2025 document. The dense model (0.879 → 0.910) performs better than the sparse model (0.862 → 0.856).\n\nReference(s):\n[1], [3]",
       "sources": [
         {
-          "chunk_index": 5,
-          "doc_id": "5fbb2a53-8733-4c7f-9505-64d8666d3ae6",
+          "chunk_index": 8,
+          "doc_id": "692a9ba4-9918-4338-9f40-24dc2485d1ec",
           "filename": "PAN2025.pdf",
-          "relevance_score": 0.7084,
-          "text": "ure representations. Two complementary paradigms\nRepresentation Model CVScore TestScore\narecompared:TF-IDF(1,2) LR 0.862 0.856\n• Sparse (TF-IDF). Unigrams n=(1,1) and bigrams Word2Vec(avg) LR 0.879 0.910\nn=(1,2) with min_df=3, max_df=0.9 and\nmax_features=5000 (bigram model only to Dense embeddings obtain a +5.4points absolute advantage\nprevent excessive memory consumption). Classifier: on the held-out test set. The in-domain Word2Vec model\nLogisticRegressionwithregularisationstrengthC tuned capturessemanticregularitiesthatTF-IDFcannotencode(e.g."
+          "relevance_score": 0.7662,
+          "text": "3.2 Sparsevs.Dense Feature representations. Two complementary paradigms Representation Model CVScore TestScore arecompared: TF-IDF(1,2) LR 0.862 0.856 • Sparse (TF-IDF). Unigrams n=(1,1) and bigrams Word2Vec(avg) LR 0.879 0.910 n=(1,2) with min_df=3, max_df=0.9 and max_features=5000 (bigram model only to Dense embeddings obtain a +5.4points absolute advantage prevent excessive memory consumption). Classifier: on the held-out test set. The in-domain Word2Vec model LogisticRegressionwithregularisationstrengthC tuned capturessemanticregularitiesthatTF-IDFcannotencode(e.g.",
+          "web_source": ""
         },
         {
-          "chunk_index": 5,
-          "doc_id": "263ab666-d038-4a59-943c-bc7b56bca1b5",
+          "chunk_index": 13,
+          "doc_id": "692a9ba4-9918-4338-9f40-24dc2485d1ec",
           "filename": "PAN2025.pdf",
-          "relevance_score": 0.7084,
-          "text": "ure representations. Two complementary paradigms\nRepresentation Model CVScore TestScore\narecompared:TF-IDF(1,2) LR 0.862 0.856\n• Sparse (TF-IDF). Unigrams n=(1,1) and bigrams Word2Vec(avg) LR 0.879 0.910\nn=(1,2) with min_df=3, max_df=0.9 and\nmax_features=5000 (bigram model only to Dense embeddings obtain a +5.4points absolute advantage\nprevent excessive memory consumption). Classifier: on the held-out test set. The in-domain Word2Vec model\nLogisticRegressionwithregularisationstrengthC tuned capturessemanticregularitiesthatTF-IDFcannotencode(e.g."
+          "relevance_score": 0.6758,
+          "text": "highlypolished,style-obfuscatedAItextislexicallyindistin- 3. “Critical behavior of density of states near Fe...” – guishable from academic human text. As would be deeply Cause: physics/mathsheavynotation. Densemathemati- explainedinthequalitativefailureanalysis.",
+          "web_source": ""
         },
         {
-          "chunk_index": 4,
-          "doc_id": "5fbb2a53-8733-4c7f-9505-64d8666d3ae6",
+          "chunk_index": 9,
+          "doc_id": "692a9ba4-9918-4338-9f40-24dc2485d1ec",
           "filename": "PAN2025.pdf",
-          "relevance_score": 0.6844,
-          "text": "core\nclassbalanceinbothpartitions.\nLR TF-IDFUnigrams 0.845\nLR TF-IDFBigrams(1,2) 0.862\n2 MethodologyAddingbigramsimprovesthecompositescoreby+1.7points,\nPreprocessing. Alltextislower-cased,non-alphabeticchar- confirmingthatshortphrasalpatterns(e.g.notably,geq,leq)\nactersareremoved,Englishstop-words(NLTK)arediscarded, arediscriminativecuesbetweenAIandhumantext.\nand tokens are lemmatised with WordNetLemmatizer.\nThisconstitutesthecleanconditionusedinallexperiments.\n3.2 Sparsevs.Dense\nFeature representations. Two complementary paradigms\nRepresentation Model CVScore TestScore\narecompared:"
+          "relevance_score": 0.6734,
+          "text": "viagridsearch. latent word co-occurrence patterns of AI prose). The slight • Dense (Word2Vec). A custom Word2Vec model generalisationgapofthesparsemodel(0.862→0.856)versus (vector_size=100, window=5, min_count=2, the dense model (0.879 → 0.910) suggests the Word2Vec seed=42)trainedonthetrainingsentences. Document representationislesssensitivetovocabularymismatch.",
+          "web_source": ""
         },
         {
-          "chunk_index": 4,
-          "doc_id": "263ab666-d038-4a59-943c-bc7b56bca1b5",
-          "filename": "PAN2025.pdf",
-          "relevance_score": 0.6844,
-          "text": "core\nclassbalanceinbothpartitions.\nLR TF-IDFUnigrams 0.845\nLR TF-IDFBigrams(1,2) 0.862\n2 MethodologyAddingbigramsimprovesthecompositescoreby+1.7points,\nPreprocessing. Alltextislower-cased,non-alphabeticchar- confirmingthatshortphrasalpatterns(e.g.notably,geq,leq)\nactersareremoved,Englishstop-words(NLTK)arediscarded, arediscriminativecuesbetweenAIandhumantext.\nand tokens are lemmatised with WordNetLemmatizer.\nThisconstitutesthecleanconditionusedinallexperiments.\n3.2 Sparsevs.Dense\nFeature representations. Two complementary paradigms\nRepresentation Model CVScore TestScore\narecompared:"
-        },
-        {
-          "chunk_index": 2,
-          "doc_id": "515e8b19-a887-4133-ab99-4d0ee453fabf",
+          "chunk_index": 11,
+          "doc_id": "5b1d14d3-daf8-417e-b1c1-a73e3dfb6608",
           "filename": "PAN2025_Assignment_2.pdf",
-          "relevance_score": 0.6471,
-          "text": "es: acustomRecurrentNeural\nNetwork(LSTM)trainedfromscratch,andafine-tuned 3.1 ArchitectureComparisonTransformer(bert-base-uncased). Werigorously\nTable 1 details the direct comparison between our As-\nmaintainthesamedatasetsplit,preprocessingconstraints,\nsignment1baselineandthetwoneuralarchitectures.\nandcompositeevaluationmetric(combiningAUC,Brier\nscore, F1, F0.5u, and c@1) to ensure a direct and fair\ncomparison, evaluating whether the added complexity Model CVScore TestScore\nand computational cost of deep neural models yield\nLR+Word2Vec(Baseline) 0.7724 -"
-        },
-        {
-          "chunk_index": 2,
-          "doc_id": "f2dfe451-11cc-4424-b47b-f22269892eba",
-          "filename": "PAN2025_Assignment_2.pdf",
-          "relevance_score": 0.6471,
-          "text": "es: acustomRecurrentNeural\nNetwork(LSTM)trainedfromscratch,andafine-tuned 3.1 ArchitectureComparisonTransformer(bert-base-uncased). Werigorously\nTable 1 details the direct comparison between our As-\nmaintainthesamedatasetsplit,preprocessingconstraints,\nsignment1baselineandthetwoneuralarchitectures.\nandcompositeevaluationmetric(combiningAUC,Brier\nscore, F1, F0.5u, and c@1) to ensure a direct and fair\ncomparison, evaluating whether the added complexity Model CVScore TestScore\nand computational cost of deep neural models yield\nLR+Word2Vec(Baseline) 0.7724 -"
-        },
-        {
-          "chunk_index": 6,
-          "doc_id": "5fbb2a53-8733-4c7f-9505-64d8666d3ae6",
-          "filename": "PAN2025.pdf",
-          "relevance_score": 0.6461,
-          "text": "cRegressionwithregularisationstrengthC tuned capturessemanticregularitiesthatTF-IDFcannotencode(e.g.viagridsearch. latent word co-occurrence patterns of AI prose). The slight\n• Dense (Word2Vec). A custom Word2Vec model generalisationgapofthesparsemodel(0.862→0.856)versus\n(vector_size=100, window=5, min_count=2, the dense model (0.879 → 0.910) suggests the Word2Vec\nseed=42)trainedonthetrainingsentences. Document representationislesssensitivetovocabularymismatch.\n1"
-        },
-        {
-          "chunk_index": 6,
-          "doc_id": "263ab666-d038-4a59-943c-bc7b56bca1b5",
-          "filename": "PAN2025.pdf",
-          "relevance_score": 0.6461,
-          "text": "cRegressionwithregularisationstrengthC tuned capturessemanticregularitiesthatTF-IDFcannotencode(e.g.viagridsearch. latent word co-occurrence patterns of AI prose). The slight\n• Dense (Word2Vec). A custom Word2Vec model generalisationgapofthesparsemodel(0.862→0.856)versus\n(vector_size=100, window=5, min_count=2, the dense model (0.879 → 0.910) suggests the Word2Vec\nseed=42)trainedonthetrainingsentences. Document representationislesssensitivetovocabularymismatch.\n1"
+          "relevance_score": 0.6574,
+          "text": "• \"LinearBoltzmann-likeequation... describingnon- Figure1: Performancevs. TrainingSizeforBaseline, classicalparticletransport...\" LSTM,andBERT.",
+          "web_source": ""
         },
         {
           "chunk_index": 0,
-          "doc_id": "5fbb2a53-8733-4c7f-9505-64d8666d3ae6",
+          "doc_id": "692a9ba4-9918-4338-9f40-24dc2485d1ec",
           "filename": "PAN2025.pdf",
-          "relevance_score": 0.6416,
-          "text": "Generative AI Authorship Verification:\nSparse vs. Dense Text Representations\nfor the PAN 2025 Voight-Kampff Task\nAssignment1–TextClassification\nEnekoIsturitzSesma,LanderJimenezNadales\nUnaiLalanaMorales\nFebruary2026\n1 Task & Dataset\nvectorsareobtainedbyaveragingallwordembeddings.\nClassifier: Logistic Regression with C tuned via grid\nThisworkaddressesthePAN2025Voight-KampffGenera- search(C ∈{0.01,0.1,1,10}).\ntiveAIDetectionsharedtask(Subtask1),introducedinBeven-"
-        },
-        {
-          "chunk_index": 0,
-          "doc_id": "263ab666-d038-4a59-943c-bc7b56bca1b5",
-          "filename": "PAN2025.pdf",
-          "relevance_score": 0.6416,
-          "text": "Generative AI Authorship Verification:\nSparse vs. Dense Text Representations\nfor the PAN 2025 Voight-Kampff Task\nAssignment1–TextClassification\nEnekoIsturitzSesma,LanderJimenezNadales\nUnaiLalanaMorales\nFebruary2026\n1 Task & Dataset\nvectorsareobtainedbyaveragingallwordembeddings.\nClassifier: Logistic Regression with C tuned via grid\nThisworkaddressesthePAN2025Voight-KampffGenera- search(C ∈{0.01,0.1,1,10}).\ntiveAIDetectionsharedtask(Subtask1),introducedinBeven-"
+          "relevance_score": 0.6526,
+          "text": "Generative AI Authorship Verification: Sparse vs. Dense Text Representations for the PAN 2025 Voight-Kampff Task Assignment1–TextClassification EnekoIsturitzSesma,LanderJimenezNadales UnaiLalanaMorales February2026 1 Task & Dataset vectorsareobtainedbyaveragingallwordembeddings.",
+          "web_source": ""
         }
       ]
     },
@@ -157,77 +113,47 @@
       "expected_answer": "The model with the highest computational cost is the Bert model.",
       "source_doc": "PAN2025_Assignment_2.pdf",
       "source_passage": "While BERT delivers the highest accuracy, its deployment cost is immense: it requires 3.5GB of VRAM and infers significantly slower than the Logistic Regression model.",
-      "generated_answer": "The LLM took too long to respond. Please try a shorter question.",
+      "generated_answer": "The model with the highest computational cost is BERT, as mentioned in the context passage [4].",
       "sources": [
         {
-          "chunk_index": 2,
-          "doc_id": "515e8b19-a887-4133-ab99-4d0ee453fabf",
-          "filename": "PAN2025_Assignment_2.pdf",
-          "relevance_score": 0.6848,
-          "text": "es: acustomRecurrentNeural\nNetwork(LSTM)trainedfromscratch,andafine-tuned 3.1 ArchitectureComparisonTransformer(bert-base-uncased). Werigorously\nTable 1 details the direct comparison between our As-\nmaintainthesamedatasetsplit,preprocessingconstraints,\nsignment1baselineandthetwoneuralarchitectures.\nandcompositeevaluationmetric(combiningAUC,Brier\nscore, F1, F0.5u, and c@1) to ensure a direct and fair\ncomparison, evaluating whether the added complexity Model CVScore TestScore\nand computational cost of deep neural models yield\nLR+Word2Vec(Baseline) 0.7724 -"
-        },
-        {
-          "chunk_index": 2,
-          "doc_id": "f2dfe451-11cc-4424-b47b-f22269892eba",
-          "filename": "PAN2025_Assignment_2.pdf",
-          "relevance_score": 0.6848,
-          "text": "es: acustomRecurrentNeural\nNetwork(LSTM)trainedfromscratch,andafine-tuned 3.1 ArchitectureComparisonTransformer(bert-base-uncased). Werigorously\nTable 1 details the direct comparison between our As-\nmaintainthesamedatasetsplit,preprocessingconstraints,\nsignment1baselineandthetwoneuralarchitectures.\nandcompositeevaluationmetric(combiningAUC,Brier\nscore, F1, F0.5u, and c@1) to ensure a direct and fair\ncomparison, evaluating whether the added complexity Model CVScore TestScore\nand computational cost of deep neural models yield\nLR+Word2Vec(Baseline) 0.7724 -"
-        },
-        {
-          "chunk_index": 15,
-          "doc_id": "515e8b19-a887-4133-ab99-4d0ee453fabf",
-          "filename": "PAN2025_Assignment_2.pdf",
-          "relevance_score": 0.6604,
-          "text": "con-\nwe propose...\" or \"Specifically, this model is equipped strainedbydatasetsizeandtrainingtime.\n2Practically,whiledeeplearningpushesthestate-of-the-\nartingenerativeAIdetection,the∼10KparameterBase-\nline remains a highly robust, eco-friendly alternative.\nFutureiterationsshouldexploreparameter-efficientfine-\ntuning (PEFT) like LoRA to bridge the gap between\nBERT’saccuracyandtheBaseline’sefficiency.\n3"
-        },
-        {
-          "chunk_index": 15,
-          "doc_id": "f2dfe451-11cc-4424-b47b-f22269892eba",
-          "filename": "PAN2025_Assignment_2.pdf",
-          "relevance_score": 0.6604,
-          "text": "con-\nwe propose...\" or \"Specifically, this model is equipped strainedbydatasetsizeandtrainingtime.\n2Practically,whiledeeplearningpushesthestate-of-the-\nartingenerativeAIdetection,the∼10KparameterBase-\nline remains a highly robust, eco-friendly alternative.\nFutureiterationsshouldexploreparameter-efficientfine-\ntuning (PEFT) like LoRA to bridge the gap between\nBERT’saccuracyandtheBaseline’sefficiency.\n3"
-        },
-        {
           "chunk_index": 3,
-          "doc_id": "515e8b19-a887-4133-ab99-4d0ee453fabf",
+          "doc_id": "5b1d14d3-daf8-417e-b1c1-a73e3dfb6608",
           "filename": "PAN2025_Assignment_2.pdf",
-          "relevance_score": 0.6524,
-          "text": "CVScore TestScore\nand computational cost of deep neural models yield\nLR+Word2Vec(Baseline) 0.7724 -meaningfulperformancegains. LSTM(fromscratch) 0.8419 0.8382\nBERT(fine-tuned) 0.9036 0.8281\n2 Methodology\nTable1: Overallperformancecomparisononthecom-\npositemetric.\nDataset&Preprocessing. Forthisassignment,asbig-\ngermodelsarebeingtrained,wedecidedtousethecom-\nItcanbeobservedhowbothBERTandtheLSTMmodels\npletedatasetincreasingthenumberofexamples.Inorder\neasilyoutperformedthebaselinemodel,withBERTeven\ntobeabletohandleallthedata,wedecidedtotruncate\nachievingover0.9intheCVscore."
+          "relevance_score": 0.6679,
+          "text": "andcompositeevaluationmetric(combiningAUC,Brier score, F1, F0.5u, and c@1) to ensure a direct and fair comparison, evaluating whether the added complexity Model CVScore TestScore and computational cost of deep neural models yield LR+Word2Vec(Baseline) 0.7724 - meaningfulperformancegains. LSTM(fromscratch) 0.8419 0.8382 BERT(fine-tuned) 0.9036 0.8281 2 Methodology Table1: Overallperformancecomparisononthecom- positemetric.",
+          "web_source": ""
         },
         {
-          "chunk_index": 3,
-          "doc_id": "f2dfe451-11cc-4424-b47b-f22269892eba",
+          "chunk_index": 14,
+          "doc_id": "5b1d14d3-daf8-417e-b1c1-a73e3dfb6608",
           "filename": "PAN2025_Assignment_2.pdf",
-          "relevance_score": 0.6524,
-          "text": "CVScore TestScore\nand computational cost of deep neural models yield\nLR+Word2Vec(Baseline) 0.7724 -meaningfulperformancegains. LSTM(fromscratch) 0.8419 0.8382\nBERT(fine-tuned) 0.9036 0.8281\n2 Methodology\nTable1: Overallperformancecomparisononthecom-\npositemetric.\nDataset&Preprocessing. Forthisassignment,asbig-\ngermodelsarebeingtrained,wedecidedtousethecom-\nItcanbeobservedhowbothBERTandtheLSTMmodels\npletedatasetincreasingthenumberofexamples.Inorder\neasilyoutperformedthebaselinemodel,withBERTeven\ntobeabletohandleallthedata,wedecidedtotruncate\nachievingover0.9intheCVscore."
+          "relevance_score": 0.6573,
+          "text": "3.5 ComputationalCost 3.4 ErrorAnalysis Deep learning models introduce significant overhead.",
+          "web_source": ""
         },
         {
           "chunk_index": 8,
-          "doc_id": "515e8b19-a887-4133-ab99-4d0ee453fabf",
-          "filename": "PAN2025_Assignment_2.pdf",
-          "relevance_score": 0.6482,
-          "text": "malcontrol...\"\n(specificallytheSIRmodelequations).\n• \"LinearBoltzmann-likeequation... describingnon-Figure1: Performancevs. TrainingSizeforBaseline,\nclassicalparticletransport...\"\nLSTM,andBERT.\nTheintroductionoftheseerrorssuggestsaspecific\"brit-\ntleness\"inthetransformermodelwhenfacedwithLATEX-\nModel Configuration ValScore heavycontentandsymboliclogic. Inthesesamples,the\npresence of equations (e.g., S˙(t),βI(t)) and rigorous\nLSTM Unidirectional 0.8339\nvariabledefinitionsseemsto\"mask\"thestylisticsigna-\nLSTM Bidirectional 0.8346\ntureoftheAI.BecausehumanexpertsandAImodels\nBERT FrozenEncoder 0.7453"
-        },
-        {
-          "chunk_index": 8,
-          "doc_id": "f2dfe451-11cc-4424-b47b-f22269892eba",
-          "filename": "PAN2025_Assignment_2.pdf",
-          "relevance_score": 0.6482,
-          "text": "malcontrol...\"\n(specificallytheSIRmodelequations).\n• \"LinearBoltzmann-likeequation... describingnon-Figure1: Performancevs. TrainingSizeforBaseline,\nclassicalparticletransport...\"\nLSTM,andBERT.\nTheintroductionoftheseerrorssuggestsaspecific\"brit-\ntleness\"inthetransformermodelwhenfacedwithLATEX-\nModel Configuration ValScore heavycontentandsymboliclogic. Inthesesamples,the\npresence of equations (e.g., S˙(t),βI(t)) and rigorous\nLSTM Unidirectional 0.8339\nvariabledefinitionsseemsto\"mask\"thestylisticsigna-\nLSTM Bidirectional 0.8346\ntureoftheAI.BecausehumanexpertsandAImodels\nBERT FrozenEncoder 0.7453"
-        },
-        {
-          "chunk_index": 13,
-          "doc_id": "f2d14099-5f5d-4914-bd26-a8c39ac9f787",
-          "filename": "Fraudulent_Transaction_Detection.pdf",
-          "relevance_score": 0.6451,
-          "text": "nd facilitated collaborative analysis.\nFigure 1: MLflow dashboard showing multiple experiment runs\n3(a) XGBoost Feature Importance (b) TabNet Feature Importance\nFigure 2: Feature importance graphs\n7 Results and Model Comparison\nAcross all experiments, XGBoost consistently achieved higher PR-AUC, Precision, Recall and\nF1-score than TabNet, while also requiring significantly less training time and computational\nresources.\nTable 1: Model performance comparison\nModel PR-AUC Precision Recall F1-score\nXGBoost 0.98 1.00 0.96 0.98\nTabNet 0.98 0.98 0.95 0.96\n8 Threshold Optimization"
-        },
-        {
-          "chunk_index": 5,
-          "doc_id": "263ab666-d038-4a59-943c-bc7b56bca1b5",
+          "doc_id": "692a9ba4-9918-4338-9f40-24dc2485d1ec",
           "filename": "PAN2025.pdf",
-          "relevance_score": 0.6348,
-          "text": "ure representations. Two complementary paradigms\nRepresentation Model CVScore TestScore\narecompared:TF-IDF(1,2) LR 0.862 0.856\n• Sparse (TF-IDF). Unigrams n=(1,1) and bigrams Word2Vec(avg) LR 0.879 0.910\nn=(1,2) with min_df=3, max_df=0.9 and\nmax_features=5000 (bigram model only to Dense embeddings obtain a +5.4points absolute advantage\nprevent excessive memory consumption). Classifier: on the held-out test set. The in-domain Word2Vec model\nLogisticRegressionwithregularisationstrengthC tuned capturessemanticregularitiesthatTF-IDFcannotencode(e.g."
+          "relevance_score": 0.6551,
+          "text": "3.2 Sparsevs.Dense Feature representations. Two complementary paradigms Representation Model CVScore TestScore arecompared: TF-IDF(1,2) LR 0.862 0.856 • Sparse (TF-IDF). Unigrams n=(1,1) and bigrams Word2Vec(avg) LR 0.879 0.910 n=(1,2) with min_df=3, max_df=0.9 and max_features=5000 (bigram model only to Dense embeddings obtain a +5.4points absolute advantage prevent excessive memory consumption). Classifier: on the held-out test set. The in-domain Word2Vec model LogisticRegressionwithregularisationstrengthC tuned capturessemanticregularitiesthatTF-IDFcannotencode(e.g.",
+          "web_source": ""
+        },
+        {
+          "chunk_index": 17,
+          "doc_id": "5b1d14d3-daf8-417e-b1c1-a73e3dfb6608",
+          "filename": "PAN2025_Assignment_2.pdf",
+          "relevance_score": 0.6482,
+          "text": "generated (susp) passages that the baseline misclas- sifiedashuman-written. Akeypatternobservedinthe fixedexamplesinvolveshighlytechnical,denseabstracts While BERT delivers the highest accuracy, its deploy- suchas: mentcostisimmense: itrequires3.5GBofVRAMand inferssignificantlyslowerthantheLogisticRegression • \"Pricing Variable Annuity Contracts with High- model. Thebaselineremainsthemostpragmaticchoice WaterMarkFeature...\" forresource-constrainedenvironments,whileBERTis • \"RadioMorphing: towardsafastcomputationof idealwhenaccuracyisparamountandhardwareallows.",
+          "web_source": ""
+        },
+        {
+          "chunk_index": 20,
+          "doc_id": "5b1d14d3-daf8-417e-b1c1-a73e3dfb6608",
+          "filename": "PAN2025_Assignment_2.pdf",
+          "relevance_score": 0.6475,
+          "text": "Practically,whiledeeplearningpushesthestate-of-the- artingenerativeAIdetection,the∼10KparameterBase- line remains a highly robust, eco-friendly alternative. Futureiterationsshouldexploreparameter-efficientfine- tuning (PEFT) like LoRA to bridge the gap between BERT’saccuracyandtheBaseline’sefficiency. 3",
+          "web_source": ""
         }
       ]
     },
@@ -237,77 +163,47 @@
       "expected_answer": "All text is lower-cased, non-alphabetic characters are removed, English stop-words (NLTK) are discarded, and tokens are lemmatised with WordNetLemmatizer.",
       "source_doc": "PAN2025.pdf",
       "source_passage": "Preprocessing. All text is lower-cased, non-alphabetic characters are removed, English stop-words (NLTK) are discarded, and tokens are lemmatised with WordNetLemmatizer.",
-      "generated_answer": "The LLM took too long to respond. Please try a shorter question.",
+      "generated_answer": "The preprocessing applied to the texts includes:\n\n1. All text is lower-cased [1].\n2. Non-alphabetic characters are removed [1].\n3. English stop-words (NLTK) are discarded [1].\n4. The text is lemmatized [2].\n\nReference(s):\n[1] LOCAL DOCUMENT: PAN2025.pdf\n[2] LOCAL DOCUMENT: PAN2025_Assignment_2.pdf",
       "sources": [
         {
-          "chunk_index": 8,
-          "doc_id": "5fbb2a53-8733-4c7f-9505-64d8666d3ae6",
+          "chunk_index": 5,
+          "doc_id": "692a9ba4-9918-4338-9f40-24dc2485d1ec",
           "filename": "PAN2025.pdf",
-          "relevance_score": 0.7131,
-          "text": "apersusedry,formaltextthatoverlapsstrongly\nnanterrorisFalseNegatives: AI-generatedtextsmisclassifiedwith AI-generated text patterns. This is a domain-\nas human-written. This gap is consistent with the literature:\nambiguityfailure.\nhighlypolished,style-obfuscatedAItextislexicallyindistin-\n3. “Critical behavior of density of states near Fe...” –\nguishable from academic human text. As would be deeply\nCause: physics/mathsheavynotation. Densemathemati-\nexplainedinthequalitativefailureanalysis.\ncalcontentconfusesthemodel:bothAIandhumanswrite\nwithsimilarformalism."
+          "relevance_score": 0.7159,
+          "text": "LR TF-IDFUnigrams 0.845 LR TF-IDFBigrams(1,2) 0.862 2 Methodology Addingbigramsimprovesthecompositescoreby+1.7points, Preprocessing. Alltextislower-cased,non-alphabeticchar- confirmingthatshortphrasalpatterns(e.g.notably,geq,leq) actersareremoved,Englishstop-words(NLTK)arediscarded, arediscriminativecuesbetweenAIandhumantext.",
+          "web_source": ""
         },
         {
-          "chunk_index": 8,
-          "doc_id": "263ab666-d038-4a59-943c-bc7b56bca1b5",
-          "filename": "PAN2025.pdf",
-          "relevance_score": 0.7131,
-          "text": "apersusedry,formaltextthatoverlapsstrongly\nnanterrorisFalseNegatives: AI-generatedtextsmisclassifiedwith AI-generated text patterns. This is a domain-\nas human-written. This gap is consistent with the literature:\nambiguityfailure.\nhighlypolished,style-obfuscatedAItextislexicallyindistin-\n3. “Critical behavior of density of states near Fe...” –\nguishable from academic human text. As would be deeply\nCause: physics/mathsheavynotation. Densemathemati-\nexplainedinthequalitativefailureanalysis.\ncalcontentconfusesthemodel:bothAIandhumanswrite\nwithsimilarformalism."
-        },
-        {
-          "chunk_index": 12,
-          "doc_id": "5fbb2a53-8733-4c7f-9505-64d8666d3ae6",
-          "filename": "PAN2025.pdf",
-          "relevance_score": 0.7101,
-          "text": "ughcol-\nsusp(AI) geq,expressed,thereby,leq, locationalpatterns. Erroranalysisrevealsthatfailuremodesequation,additionally,exhibit, areconcentratedinhighlyspecialised,notation-richdomains\nwithin,notably,quad where AI and human writing converge. Future work should\nsrc(Human) displaystyle,show,see,ie, explorefine-tunedtransformerencoders(e.g.BERT)andsty-\nhence,use,therefore,different, lometricfeatures(sentence-lengthdistribution,function-word\nused,fig profiles)toaddressdomain-shiftfailures.\nInterpretation. TheAI-classfeatures(notably,additionally, References"
+          "chunk_index": 5,
+          "doc_id": "5b1d14d3-daf8-417e-b1c1-a73e3dfb6608",
+          "filename": "PAN2025_Assignment_2.pdf",
+          "relevance_score": 0.7114,
+          "text": "thetextlenghthofeachexample,insteadofreducingthe numberofexamplesasinAssignment1. Wepreserve the80/20train-testsplitasinAssignment1,containing 3.2 LearningCurveAnalysis academictextclassifiedashuman-written(src)orAI- generated(susp). Textislowercased,lemmatised,and Tounderstanddataefficiency, modelsweretrainedon stripped of non-alphabetic characters and NLTK stop- 25%,50%,75%,and100%ofthetrainingdata.",
+          "web_source": ""
         },
         {
           "chunk_index": 12,
-          "doc_id": "263ab666-d038-4a59-943c-bc7b56bca1b5",
+          "doc_id": "692a9ba4-9918-4338-9f40-24dc2485d1ec",
           "filename": "PAN2025.pdf",
-          "relevance_score": 0.7101,
-          "text": "ughcol-\nsusp(AI) geq,expressed,thereby,leq, locationalpatterns. Erroranalysisrevealsthatfailuremodesequation,additionally,exhibit, areconcentratedinhighlyspecialised,notation-richdomains\nwithin,notably,quad where AI and human writing converge. Future work should\nsrc(Human) displaystyle,show,see,ie, explorefine-tunedtransformerencoders(e.g.BERT)andsty-\nhence,use,therefore,different, lometricfeatures(sentence-lengthdistribution,function-word\nused,fig profiles)toaddressdomain-shiftfailures.\nInterpretation. TheAI-classfeatures(notably,additionally, References"
+          "relevance_score": 0.6962,
+          "text": "2. “Multi-CoreProcessorSchedulingwithRespectto...” – The confusion matrix for the best sparse model (TF-IDF bi- Cause: formalcomputer-scienceterminology. Computer- grams,C={best},testset)isshowninFigure1. Thedomi- systempapersusedry,formaltextthatoverlapsstrongly nanterrorisFalseNegatives: AI-generatedtextsmisclassified with AI-generated text patterns. This is a domain- as human-written. This gap is consistent with the literature: ambiguityfailure.",
+          "web_source": ""
         },
         {
-          "chunk_index": 14,
-          "doc_id": "5fbb2a53-8733-4c7f-9505-64d8666d3ae6",
+          "chunk_index": 17,
+          "doc_id": "692a9ba4-9918-4338-9f40-24dc2485d1ec",
           "filename": "PAN2025.pdf",
-          "relevance_score": 0.6813,
-          "text": "s.\n[2] A.Peñas&A.Rodrigo,ASimpleMeasuretoAssessNon-\nresponse,ACL2011.\n4.3 QualitativeFailureAnalysisThefivemisclassifiedexamplesretrievedfromthetestset(all\nFalse Negatives: true susp predicted as src) are reported\nbelow:\n1. “Constrainingnuclearstarclusterformationusing...”–\nCause: specialisedastrophysicsvocabulary. Thetextis\nhighlytechnicalanddomain-specific;themodel’sfeatures\n2"
+          "relevance_score": 0.6889,
+          "text": "Allfivecasesinvolvedomainshiftorlexicalambiguity: con- textswherestylisticmarkersofAIauthorshipcoincidewith humanexpertwriting. Noneinvolvesarcasmornegation(the corpus is academic), but obfuscation via highly specialised vocabularyistheprimarychallenge.",
+          "web_source": ""
         },
         {
-          "chunk_index": 14,
-          "doc_id": "263ab666-d038-4a59-943c-bc7b56bca1b5",
+          "chunk_index": 20,
+          "doc_id": "692a9ba4-9918-4338-9f40-24dc2485d1ec",
           "filename": "PAN2025.pdf",
-          "relevance_score": 0.6813,
-          "text": "s.\n[2] A.Peñas&A.Rodrigo,ASimpleMeasuretoAssessNon-\nresponse,ACL2011.\n4.3 QualitativeFailureAnalysisThefivemisclassifiedexamplesretrievedfromthetestset(all\nFalse Negatives: true susp predicted as src) are reported\nbelow:\n1. “Constrainingnuclearstarclusterformationusing...”–\nCause: specialisedastrophysicsvocabulary. Thetextis\nhighlytechnicalanddomain-specific;themodel’sfeatures\n2"
-        },
-        {
-          "chunk_index": 6,
-          "doc_id": "5fbb2a53-8733-4c7f-9505-64d8666d3ae6",
-          "filename": "PAN2025.pdf",
-          "relevance_score": 0.6638,
-          "text": "cRegressionwithregularisationstrengthC tuned capturessemanticregularitiesthatTF-IDFcannotencode(e.g.viagridsearch. latent word co-occurrence patterns of AI prose). The slight\n• Dense (Word2Vec). A custom Word2Vec model generalisationgapofthesparsemodel(0.862→0.856)versus\n(vector_size=100, window=5, min_count=2, the dense model (0.879 → 0.910) suggests the Word2Vec\nseed=42)trainedonthetrainingsentences. Document representationislesssensitivetovocabularymismatch.\n1"
-        },
-        {
-          "chunk_index": 6,
-          "doc_id": "263ab666-d038-4a59-943c-bc7b56bca1b5",
-          "filename": "PAN2025.pdf",
-          "relevance_score": 0.6638,
-          "text": "cRegressionwithregularisationstrengthC tuned capturessemanticregularitiesthatTF-IDFcannotencode(e.g.viagridsearch. latent word co-occurrence patterns of AI prose). The slight\n• Dense (Word2Vec). A custom Word2Vec model generalisationgapofthesparsemodel(0.862→0.856)versus\n(vector_size=100, window=5, min_count=2, the dense model (0.879 → 0.910) suggests the Word2Vec\nseed=42)trainedonthetrainingsentences. Document representationislesssensitivetovocabularymismatch.\n1"
-        },
-        {
-          "chunk_index": 13,
-          "doc_id": "5fbb2a53-8733-4c7f-9505-64d8666d3ae6",
-          "filename": "PAN2025.pdf",
-          "relevance_score": 0.6628,
-          "text": ")toaddressdomain-shiftfailures.\nInterpretation. TheAI-classfeatures(notably,additionally, Referencesthereby,exhibit)aremarksofAIoveruseofformalwording.\nMathematical notation tokens (geq, leq, quad) show AI ten- [1] J.Bevendorffetal.,OverviewofPAN2025:Voight-Kampff\ndencytodescribeequationsverbosely. Human-classfeatures GenerativeAIAuthorshipVerification,CLEF2025Work-\n(show,see,use,fig)showtheterse,referentialstyleofhuman ingNotes,2025.\nauthors.\n[2] A.Peñas&A.Rodrigo,ASimpleMeasuretoAssessNon-\nresponse,ACL2011.\n4.3 QualitativeFailureAnalysis"
-        },
-        {
-          "chunk_index": 13,
-          "doc_id": "263ab666-d038-4a59-943c-bc7b56bca1b5",
-          "filename": "PAN2025.pdf",
-          "relevance_score": 0.6628,
-          "text": ")toaddressdomain-shiftfailures.\nInterpretation. TheAI-classfeatures(notably,additionally, Referencesthereby,exhibit)aremarksofAIoveruseofformalwording.\nMathematical notation tokens (geq, leq, quad) show AI ten- [1] J.Bevendorffetal.,OverviewofPAN2025:Voight-Kampff\ndencytodescribeequationsverbosely. Human-classfeatures GenerativeAIAuthorshipVerification,CLEF2025Work-\n(show,see,use,fig)showtheterse,referentialstyleofhuman ingNotes,2025.\nauthors.\n[2] A.Peñas&A.Rodrigo,ASimpleMeasuretoAssessNon-\nresponse,ACL2011.\n4.3 QualitativeFailureAnalysis"
+          "relevance_score": 0.6855,
+          "text": "Interpretation. TheAI-classfeatures(notably,additionally, References thereby,exhibit)aremarksofAIoveruseofformalwording.",
+          "web_source": ""
         }
       ]
     },
@@ -317,77 +213,47 @@
       "expected_answer": "The Bert model used is the BERT-base-uncased model.",
       "source_doc": "PAN2025_Assignment_2.pdf",
       "source_passage": "Transformer (BERT): Wefine-tune the pre-trained bert-base-uncased model from Hugging Face.",
-      "generated_answer": "The LLM took too long to respond. Please try a shorter question.",
+      "generated_answer": "The BERT-base-uncased model is used in the context. [5]",
       "sources": [
         {
-          "chunk_index": 4,
-          "doc_id": "515e8b19-a887-4133-ab99-4d0ee453fabf",
+          "chunk_index": 7,
+          "doc_id": "5b1d14d3-daf8-417e-b1c1-a73e3dfb6608",
           "filename": "PAN2025_Assignment_2.pdf",
-          "relevance_score": 0.7625,
-          "text": "elinemodel,withBERTeven\ntobeabletohandleallthedata,wedecidedtotruncate\nachievingover0.9intheCVscore.thetextlenghthofeachexample,insteadofreducingthe\nnumberofexamplesasinAssignment1. Wepreserve\nthe80/20train-testsplitasinAssignment1,containing 3.2 LearningCurveAnalysis\nacademictextclassifiedashuman-written(src)orAI-\ngenerated(susp). Textislowercased,lemmatised,and Tounderstanddataefficiency, modelsweretrainedon\nstripped of non-alphabetic characters and NLTK stop- 25%,50%,75%,and100%ofthetrainingdata.\nwords.\nAs observed in Figure 1, the fine-tuned BERT model"
+          "relevance_score": 0.782,
+          "text": "As observed in Figure 1, the fine-tuned BERT model demonstrates strong performance even at lower data NeuralArchitectures. Weimplementtwodistinctneu- regimes(25%)duetoitspre-trainedknowledge. Con- ralparadigms: versely, the LSTM requires significantly more data to approachbertperformance,confirmingthattrainingre- • Recurrent Model (LSTM): A custom PyTorch currentmodelsfromscratchisdata-hungry.",
+          "web_source": ""
         },
         {
-          "chunk_index": 4,
-          "doc_id": "f2dfe451-11cc-4424-b47b-f22269892eba",
+          "chunk_index": 16,
+          "doc_id": "5b1d14d3-daf8-417e-b1c1-a73e3dfb6608",
           "filename": "PAN2025_Assignment_2.pdf",
-          "relevance_score": 0.7625,
-          "text": "elinemodel,withBERTeven\ntobeabletohandleallthedata,wedecidedtotruncate\nachievingover0.9intheCVscore.thetextlenghthofeachexample,insteadofreducingthe\nnumberofexamplesasinAssignment1. Wepreserve\nthe80/20train-testsplitasinAssignment1,containing 3.2 LearningCurveAnalysis\nacademictextclassifiedashuman-written(src)orAI-\ngenerated(susp). Textislowercased,lemmatised,and Tounderstanddataefficiency, modelsweretrainedon\nstripped of non-alphabetic characters and NLTK stop- 25%,50%,75%,and100%ofthetrainingdata.\nwords.\nAs observed in Figure 1, the fine-tuned BERT model"
+          "relevance_score": 0.7507,
+          "text": "We isolated test examples where the neural models (specifically the fine-tuned BERT) diverged from the Assignment 1 baseline to understand their qualitative Model Params Train(s) Inf.(ex/s) GPU(MB) behavior: LR+W2V ∼10K <10 VeryHigh 0 LSTM 19,421,234 2130.51 534.52 ∼450 BERT 109,483,778 9825.34 143.65 ∼3500 FixedbyNeuralModels: TheBERTmodeldemon- strated a superior ability to correctly classify AI- Table2: Computationalcostacrossarchitectures.",
+          "web_source": ""
         },
         {
-          "chunk_index": 11,
-          "doc_id": "515e8b19-a887-4133-ab99-4d0ee453fabf",
+          "chunk_index": 18,
+          "doc_id": "5b1d14d3-daf8-417e-b1c1-a73e3dfb6608",
           "filename": "PAN2025_Assignment_2.pdf",
-          "relevance_score": 0.7571,
-          "text": "isolated test examples where the neural models\n(specifically the fine-tuned BERT) diverged from theAssignment 1 baseline to understand their qualitative Model Params Train(s) Inf.(ex/s) GPU(MB)\nbehavior: LR+W2V ∼10K <10 VeryHigh 0\nLSTM 19,421,234 2130.51 534.52 ∼450\nBERT 109,483,778 9825.34 143.65 ∼3500\nFixedbyNeuralModels: TheBERTmodeldemon-\nstrated a superior ability to correctly classify AI-\nTable2: Computationalcostacrossarchitectures.\ngenerated (susp) passages that the baseline misclas-\nsifiedashuman-written. Akeypatternobservedinthe"
+          "relevance_score": 0.744,
+          "text": "theradiosignal...\" • \"UnsupervisedLocalDiscriminationforMedical 4 Conclusions Images...\" While the baseline likely struggled with these due to The transition from sparse/dense linear baselines to thepresenceofdomain-specificjargon(finance, astro- neuralsequencemodelsrevealsaclassicperformance- physics,medicalimaging)thatoverlapswithhumanaca- efficiency trade-off. Fine-tuning a pre-trained Trans- demic writing, BERT’s self-attention mechanism suc- former (BERT) yields the highest classification score, cessfully identified subtle, long-range stylistic depen- successfully overcoming complex domain-shift errors dencies. For instance, the systematic use of complex presentinourAssignment1baseline. However,training connectivestructures(e.g.,\"Furthermore,basedonLD, an LSTM from scratch proved less competitive, con- we propose...\" or \"Specifically, this model is equipped strainedbydatasetsizeandtrainingtime.",
+          "web_source": ""
         },
         {
-          "chunk_index": 11,
-          "doc_id": "f2dfe451-11cc-4424-b47b-f22269892eba",
+          "chunk_index": 12,
+          "doc_id": "5b1d14d3-daf8-417e-b1c1-a73e3dfb6608",
           "filename": "PAN2025_Assignment_2.pdf",
-          "relevance_score": 0.7571,
-          "text": "isolated test examples where the neural models\n(specifically the fine-tuned BERT) diverged from theAssignment 1 baseline to understand their qualitative Model Params Train(s) Inf.(ex/s) GPU(MB)\nbehavior: LR+W2V ∼10K <10 VeryHigh 0\nLSTM 19,421,234 2130.51 534.52 ∼450\nBERT 109,483,778 9825.34 143.65 ∼3500\nFixedbyNeuralModels: TheBERTmodeldemon-\nstrated a superior ability to correctly classify AI-\nTable2: Computationalcostacrossarchitectures.\ngenerated (susp) passages that the baseline misclas-\nsifiedashuman-written. Akeypatternobservedinthe"
-        },
-        {
-          "chunk_index": 5,
-          "doc_id": "515e8b19-a887-4133-ab99-4d0ee453fabf",
-          "filename": "PAN2025_Assignment_2.pdf",
-          "relevance_score": 0.7539,
-          "text": "top- 25%,50%,75%,and100%ofthetrainingdata.\nwords.\nAs observed in Figure 1, the fine-tuned BERT modeldemonstrates strong performance even at lower data\nNeuralArchitectures. Weimplementtwodistinctneu-\nregimes(25%)duetoitspre-trainedknowledge. Con-\nralparadigms:\nversely, the LSTM requires significantly more data to\napproachbertperformance,confirmingthattrainingre-\n• Recurrent Model (LSTM): A custom PyTorch\ncurrentmodelsfromscratchisdata-hungry.\nimplementation featuring an embedding layer\n(dim=100),aLongShort-TermMemorynetwork\n(hidden_dim=128),andafullyconnectedclas-\n3.3 AblationStudies"
-        },
-        {
-          "chunk_index": 5,
-          "doc_id": "f2dfe451-11cc-4424-b47b-f22269892eba",
-          "filename": "PAN2025_Assignment_2.pdf",
-          "relevance_score": 0.7539,
-          "text": "top- 25%,50%,75%,and100%ofthetrainingdata.\nwords.\nAs observed in Figure 1, the fine-tuned BERT modeldemonstrates strong performance even at lower data\nNeuralArchitectures. Weimplementtwodistinctneu-\nregimes(25%)duetoitspre-trainedknowledge. Con-\nralparadigms:\nversely, the LSTM requires significantly more data to\napproachbertperformance,confirmingthattrainingre-\n• Recurrent Model (LSTM): A custom PyTorch\ncurrentmodelsfromscratchisdata-hungry.\nimplementation featuring an embedding layer\n(dim=100),aLongShort-TermMemorynetwork\n(hidden_dim=128),andafullyconnectedclas-\n3.3 AblationStudies"
+          "relevance_score": 0.7365,
+          "text": "Theintroductionoftheseerrorssuggestsaspecific\"brit- tleness\"inthetransformermodelwhenfacedwithLATEX- Model Configuration ValScore heavycontentandsymboliclogic. Inthesesamples,the presence of equations (e.g., S˙(t),βI(t)) and rigorous LSTM Unidirectional 0.8339 variabledefinitionsseemsto\"mask\"thestylisticsigna- LSTM Bidirectional 0.8346 tureoftheAI.BecausehumanexpertsandAImodels BERT FrozenEncoder 0.7453 both follow strict formal constraints when describing BERT Unfrozen(Fine-tuned) 0.9071 mathematics,theneuralmodel’sdeeperrepresentation BidirectionalityintheLSTMyieldeda+0.0007improve- may over-rely on the technical content rather than the ment,provingthataccessingfuturetokencontextisben- underlyinggenerativestyle,leadingtoamisclassification eficial for identifying AI stylistic markers. For BERT, ashuman(src). Thishighlightsalimitationinout-of- fully fine-tuning the encoder drastically outperformed distributionformattingwheresymbolicdensityoverrides thefrozenvariant,indicatingthattask-specificadaptation linguisticpatterns.",
+          "web_source": ""
         },
         {
           "chunk_index": 0,
-          "doc_id": "515e8b19-a887-4133-ab99-4d0ee453fabf",
+          "doc_id": "5b1d14d3-daf8-417e-b1c1-a73e3dfb6608",
           "filename": "PAN2025_Assignment_2.pdf",
-          "relevance_score": 0.7499,
-          "text": "Generative AI Authorship Verification:\nNeural Sequence Models for the PAN 2025 Voight-Kampff\nTask\nAssignment2–NeuralSequenceModels\nEnekoIsturitzSesma,LanderJimenezNadales&UnaiLalanaMorales\nMarch2026\n1 Introduction\n• Transformer(BERT):Wefine-tunethepre-trained\nbert-base-uncased model from Hugging-\nThisworkextendsourbaselinefromAssignment1for Face. The [CLS] token embedding is passed to\nthePAN2025Voight-KampffGenerativeAIDetection a classification head. We apply a lower learning"
-        },
-        {
-          "chunk_index": 0,
-          "doc_id": "f2dfe451-11cc-4424-b47b-f22269892eba",
-          "filename": "PAN2025_Assignment_2.pdf",
-          "relevance_score": 0.7499,
-          "text": "Generative AI Authorship Verification:\nNeural Sequence Models for the PAN 2025 Voight-Kampff\nTask\nAssignment2–NeuralSequenceModels\nEnekoIsturitzSesma,LanderJimenezNadales&UnaiLalanaMorales\nMarch2026\n1 Introduction\n• Transformer(BERT):Wefine-tunethepre-trained\nbert-base-uncased model from Hugging-\nThisworkextendsourbaselinefromAssignment1for Face. The [CLS] token embedding is passed to\nthePAN2025Voight-KampffGenerativeAIDetection a classification head. We apply a lower learning"
-        },
-        {
-          "chunk_index": 9,
-          "doc_id": "515e8b19-a887-4133-ab99-4d0ee453fabf",
-          "filename": "PAN2025_Assignment_2.pdf",
-          "relevance_score": 0.7478,
-          "text": "igna-\nLSTM Bidirectional 0.8346\ntureoftheAI.BecausehumanexpertsandAImodels\nBERT FrozenEncoder 0.7453both follow strict formal constraints when describing\nBERT Unfrozen(Fine-tuned) 0.9071\nmathematics,theneuralmodel’sdeeperrepresentation\nBidirectionalityintheLSTMyieldeda+0.0007improve- may over-rely on the technical content rather than the\nment,provingthataccessingfuturetokencontextisben- underlyinggenerativestyle,leadingtoamisclassification\neficial for identifying AI stylistic markers. For BERT, ashuman(src). Thishighlightsalimitationinout-of-"
-        },
-        {
-          "chunk_index": 9,
-          "doc_id": "f2dfe451-11cc-4424-b47b-f22269892eba",
-          "filename": "PAN2025_Assignment_2.pdf",
-          "relevance_score": 0.7478,
-          "text": "igna-\nLSTM Bidirectional 0.8346\ntureoftheAI.BecausehumanexpertsandAImodels\nBERT FrozenEncoder 0.7453both follow strict formal constraints when describing\nBERT Unfrozen(Fine-tuned) 0.9071\nmathematics,theneuralmodel’sdeeperrepresentation\nBidirectionalityintheLSTMyieldeda+0.0007improve- may over-rely on the technical content rather than the\nment,provingthataccessingfuturetokencontextisben- underlyinggenerativestyle,leadingtoamisclassification\neficial for identifying AI stylistic markers. For BERT, ashuman(src). Thishighlightsalimitationinout-of-"
+          "relevance_score": 0.7276,
+          "text": "Generative AI Authorship Verification: Neural Sequence Models for the PAN 2025 Voight-Kampff Task Assignment2–NeuralSequenceModels EnekoIsturitzSesma,LanderJimenezNadales&UnaiLalanaMorales March2026 1 Introduction • Transformer(BERT):Wefine-tunethepre-trained bert-base-uncased model from Hugging- ThisworkextendsourbaselinefromAssignment1for Face. The [CLS] token embedding is passed to thePAN2025Voight-KampffGenerativeAIDetection a classification head. We apply a lower learning sharedtask. Ourpreviousapproachreliedonsparse(TF- rate(2×10−5)withalinearscheduleandwarmup IDF)anddense(Word2Vec)textrepresentationspaired topreventcatastrophicforgetting.",
+          "web_source": ""
         }
       ]
     },
@@ -397,77 +263,47 @@
       "expected_answer": "The authors of the paper are Eneko Isturitz Sesma, Lander Jimenez Nadales and Unai Lalana Morales.",
       "source_doc": "PAN2025_Assignment_2.pdf",
       "source_passage": "Eneko Isturitz Sesma, Lander Jimenez Nadales Unai Lalana Morales",
-      "generated_answer": "The LLM took too long to respond. Please try a shorter question.",
+      "generated_answer": "The authors of the papers are:\n\n1. Eneko Isturitz Sesma, Lander Jimenez Nadales, and Unai Lalana Morales, as per [2] and [3].\n2. The authors of the paper are not explicitly mentioned in [1], but it is a part of the same document as [2] and [3], so it can be inferred that the authors are the same.\n3. The authors of the paper in [5] are not explicitly mentioned, but it is a different document from [1], [2], and [3]. The authors of [5] are J. Bevendorff and colleagues, as per the citation [1].",
       "sources": [
         {
-          "chunk_index": 0,
-          "doc_id": "5fbb2a53-8733-4c7f-9505-64d8666d3ae6",
+          "chunk_index": 22,
+          "doc_id": "692a9ba4-9918-4338-9f40-24dc2485d1ec",
           "filename": "PAN2025.pdf",
-          "relevance_score": 0.6722,
-          "text": "Generative AI Authorship Verification:\nSparse vs. Dense Text Representations\nfor the PAN 2025 Voight-Kampff Task\nAssignment1–TextClassification\nEnekoIsturitzSesma,LanderJimenezNadales\nUnaiLalanaMorales\nFebruary2026\n1 Task & Dataset\nvectorsareobtainedbyaveragingallwordembeddings.\nClassifier: Logistic Regression with C tuned via grid\nThisworkaddressesthePAN2025Voight-KampffGenera- search(C ∈{0.01,0.1,1,10}).\ntiveAIDetectionsharedtask(Subtask1),introducedinBeven-"
-        },
-        {
-          "chunk_index": 0,
-          "doc_id": "263ab666-d038-4a59-943c-bc7b56bca1b5",
-          "filename": "PAN2025.pdf",
-          "relevance_score": 0.6722,
-          "text": "Generative AI Authorship Verification:\nSparse vs. Dense Text Representations\nfor the PAN 2025 Voight-Kampff Task\nAssignment1–TextClassification\nEnekoIsturitzSesma,LanderJimenezNadales\nUnaiLalanaMorales\nFebruary2026\n1 Task & Dataset\nvectorsareobtainedbyaveragingallwordembeddings.\nClassifier: Logistic Regression with C tuned via grid\nThisworkaddressesthePAN2025Voight-KampffGenera- search(C ∈{0.01,0.1,1,10}).\ntiveAIDetectionsharedtask(Subtask1),introducedinBeven-"
+          "relevance_score": 0.8633,
+          "text": "authors.",
+          "web_source": ""
         },
         {
           "chunk_index": 0,
-          "doc_id": "515e8b19-a887-4133-ab99-4d0ee453fabf",
-          "filename": "PAN2025_Assignment_2.pdf",
-          "relevance_score": 0.6452,
-          "text": "Generative AI Authorship Verification:\nNeural Sequence Models for the PAN 2025 Voight-Kampff\nTask\nAssignment2–NeuralSequenceModels\nEnekoIsturitzSesma,LanderJimenezNadales&UnaiLalanaMorales\nMarch2026\n1 Introduction\n• Transformer(BERT):Wefine-tunethepre-trained\nbert-base-uncased model from Hugging-\nThisworkextendsourbaselinefromAssignment1for Face. The [CLS] token embedding is passed to\nthePAN2025Voight-KampffGenerativeAIDetection a classification head. We apply a lower learning"
+          "doc_id": "692a9ba4-9918-4338-9f40-24dc2485d1ec",
+          "filename": "PAN2025.pdf",
+          "relevance_score": 0.6739,
+          "text": "Generative AI Authorship Verification: Sparse vs. Dense Text Representations for the PAN 2025 Voight-Kampff Task Assignment1–TextClassification EnekoIsturitzSesma,LanderJimenezNadales UnaiLalanaMorales February2026 1 Task & Dataset vectorsareobtainedbyaveragingallwordembeddings.",
+          "web_source": ""
         },
         {
           "chunk_index": 0,
-          "doc_id": "f2dfe451-11cc-4424-b47b-f22269892eba",
+          "doc_id": "5b1d14d3-daf8-417e-b1c1-a73e3dfb6608",
           "filename": "PAN2025_Assignment_2.pdf",
-          "relevance_score": 0.6452,
-          "text": "Generative AI Authorship Verification:\nNeural Sequence Models for the PAN 2025 Voight-Kampff\nTask\nAssignment2–NeuralSequenceModels\nEnekoIsturitzSesma,LanderJimenezNadales&UnaiLalanaMorales\nMarch2026\n1 Introduction\n• Transformer(BERT):Wefine-tunethepre-trained\nbert-base-uncased model from Hugging-\nThisworkextendsourbaselinefromAssignment1for Face. The [CLS] token embedding is passed to\nthePAN2025Voight-KampffGenerativeAIDetection a classification head. We apply a lower learning"
+          "relevance_score": 0.6441,
+          "text": "Generative AI Authorship Verification: Neural Sequence Models for the PAN 2025 Voight-Kampff Task Assignment2–NeuralSequenceModels EnekoIsturitzSesma,LanderJimenezNadales&UnaiLalanaMorales March2026 1 Introduction • Transformer(BERT):Wefine-tunethepre-trained bert-base-uncased model from Hugging- ThisworkextendsourbaselinefromAssignment1for Face. The [CLS] token embedding is passed to thePAN2025Voight-KampffGenerativeAIDetection a classification head. We apply a lower learning sharedtask. Ourpreviousapproachreliedonsparse(TF- rate(2×10−5)withalinearscheduleandwarmup IDF)anddense(Word2Vec)textrepresentationspaired topreventcatastrophicforgetting.",
+          "web_source": ""
         },
         {
-          "chunk_index": 12,
-          "doc_id": "515e8b19-a887-4133-ab99-4d0ee453fabf",
+          "chunk_index": 17,
+          "doc_id": "5b1d14d3-daf8-417e-b1c1-a73e3dfb6608",
           "filename": "PAN2025_Assignment_2.pdf",
-          "relevance_score": 0.6242,
-          "text": "generated (susp) passages that the baseline misclas-\nsifiedashuman-written. Akeypatternobservedinthefixedexamplesinvolveshighlytechnical,denseabstracts While BERT delivers the highest accuracy, its deploy-\nsuchas: mentcostisimmense: itrequires3.5GBofVRAMand\ninferssignificantlyslowerthantheLogisticRegression\n• \"Pricing Variable Annuity Contracts with High- model. Thebaselineremainsthemostpragmaticchoice\nWaterMarkFeature...\" forresource-constrainedenvironments,whileBERTis\n• \"RadioMorphing: towardsafastcomputationof idealwhenaccuracyisparamountandhardwareallows.\ntheradiosignal...\""
+          "relevance_score": 0.6172,
+          "text": "generated (susp) passages that the baseline misclas- sifiedashuman-written. Akeypatternobservedinthe fixedexamplesinvolveshighlytechnical,denseabstracts While BERT delivers the highest accuracy, its deploy- suchas: mentcostisimmense: itrequires3.5GBofVRAMand inferssignificantlyslowerthantheLogisticRegression • \"Pricing Variable Annuity Contracts with High- model. Thebaselineremainsthemostpragmaticchoice WaterMarkFeature...\" forresource-constrainedenvironments,whileBERTis • \"RadioMorphing: towardsafastcomputationof idealwhenaccuracyisparamountandhardwareallows.",
+          "web_source": ""
         },
         {
-          "chunk_index": 12,
-          "doc_id": "f2dfe451-11cc-4424-b47b-f22269892eba",
-          "filename": "PAN2025_Assignment_2.pdf",
-          "relevance_score": 0.6242,
-          "text": "generated (susp) passages that the baseline misclas-\nsifiedashuman-written. Akeypatternobservedinthefixedexamplesinvolveshighlytechnical,denseabstracts While BERT delivers the highest accuracy, its deploy-\nsuchas: mentcostisimmense: itrequires3.5GBofVRAMand\ninferssignificantlyslowerthantheLogisticRegression\n• \"Pricing Variable Annuity Contracts with High- model. Thebaselineremainsthemostpragmaticchoice\nWaterMarkFeature...\" forresource-constrainedenvironments,whileBERTis\n• \"RadioMorphing: towardsafastcomputationof idealwhenaccuracyisparamountandhardwareallows.\ntheradiosignal...\""
-        },
-        {
-          "chunk_index": 12,
-          "doc_id": "5fbb2a53-8733-4c7f-9505-64d8666d3ae6",
+          "chunk_index": 21,
+          "doc_id": "692a9ba4-9918-4338-9f40-24dc2485d1ec",
           "filename": "PAN2025.pdf",
-          "relevance_score": 0.618,
-          "text": "ughcol-\nsusp(AI) geq,expressed,thereby,leq, locationalpatterns. Erroranalysisrevealsthatfailuremodesequation,additionally,exhibit, areconcentratedinhighlyspecialised,notation-richdomains\nwithin,notably,quad where AI and human writing converge. Future work should\nsrc(Human) displaystyle,show,see,ie, explorefine-tunedtransformerencoders(e.g.BERT)andsty-\nhence,use,therefore,different, lometricfeatures(sentence-lengthdistribution,function-word\nused,fig profiles)toaddressdomain-shiftfailures.\nInterpretation. TheAI-classfeatures(notably,additionally, References"
-        },
-        {
-          "chunk_index": 12,
-          "doc_id": "263ab666-d038-4a59-943c-bc7b56bca1b5",
-          "filename": "PAN2025.pdf",
-          "relevance_score": 0.618,
-          "text": "ughcol-\nsusp(AI) geq,expressed,thereby,leq, locationalpatterns. Erroranalysisrevealsthatfailuremodesequation,additionally,exhibit, areconcentratedinhighlyspecialised,notation-richdomains\nwithin,notably,quad where AI and human writing converge. Future work should\nsrc(Human) displaystyle,show,see,ie, explorefine-tunedtransformerencoders(e.g.BERT)andsty-\nhence,use,therefore,different, lometricfeatures(sentence-lengthdistribution,function-word\nused,fig profiles)toaddressdomain-shiftfailures.\nInterpretation. TheAI-classfeatures(notably,additionally, References"
-        },
-        {
-          "chunk_index": 13,
-          "doc_id": "5fbb2a53-8733-4c7f-9505-64d8666d3ae6",
-          "filename": "PAN2025.pdf",
-          "relevance_score": 0.6063,
-          "text": ")toaddressdomain-shiftfailures.\nInterpretation. TheAI-classfeatures(notably,additionally, Referencesthereby,exhibit)aremarksofAIoveruseofformalwording.\nMathematical notation tokens (geq, leq, quad) show AI ten- [1] J.Bevendorffetal.,OverviewofPAN2025:Voight-Kampff\ndencytodescribeequationsverbosely. Human-classfeatures GenerativeAIAuthorshipVerification,CLEF2025Work-\n(show,see,use,fig)showtheterse,referentialstyleofhuman ingNotes,2025.\nauthors.\n[2] A.Peñas&A.Rodrigo,ASimpleMeasuretoAssessNon-\nresponse,ACL2011.\n4.3 QualitativeFailureAnalysis"
-        },
-        {
-          "chunk_index": 13,
-          "doc_id": "263ab666-d038-4a59-943c-bc7b56bca1b5",
-          "filename": "PAN2025.pdf",
-          "relevance_score": 0.6063,
-          "text": ")toaddressdomain-shiftfailures.\nInterpretation. TheAI-classfeatures(notably,additionally, Referencesthereby,exhibit)aremarksofAIoveruseofformalwording.\nMathematical notation tokens (geq, leq, quad) show AI ten- [1] J.Bevendorffetal.,OverviewofPAN2025:Voight-Kampff\ndencytodescribeequationsverbosely. Human-classfeatures GenerativeAIAuthorshipVerification,CLEF2025Work-\n(show,see,use,fig)showtheterse,referentialstyleofhuman ingNotes,2025.\nauthors.\n[2] A.Peñas&A.Rodrigo,ASimpleMeasuretoAssessNon-\nresponse,ACL2011.\n4.3 QualitativeFailureAnalysis"
+          "relevance_score": 0.6092,
+          "text": "Mathematical notation tokens (geq, leq, quad) show AI ten- [1] J.Bevendorffetal.,OverviewofPAN2025:Voight-Kampff dencytodescribeequationsverbosely. Human-classfeatures GenerativeAIAuthorshipVerification,CLEF2025Work- (show,see,use,fig)showtheterse,referentialstyleofhuman ingNotes,2025.",
+          "web_source": ""
         }
       ]
     },
@@ -477,77 +313,247 @@
       "expected_answer": "The metric used for evaluation is a composite metric created for this task.",
       "source_doc": "PAN2025_Assignment_2.pdf",
       "source_passage": "AN 2025 official scoring scheme, the primary optimisation metric is a composite score: Score = 1/5 AUC+(1−Brier)+F1 +F0.5u +c@1 where c@1rewardsabstention when the system is genuinely uncertain (uncertain band ±0.05 around θ=0.5) [2]. Hyperparam eter grid search is performed over C ∈ {0.01,0.1,1} (sparse) and C ∈ {0.01,0.1,1,10} (dense), all via GridSearchCV.",
-      "generated_answer": "The LLM took too long to respond. Please try a shorter question.",
+      "generated_answer": "The evaluation metric used is a composite score, which includes AUC, Brier score, F1, F0.5u, and c@1, as mentioned in the context passage from the document PAN2025_Assignment_2.pdf [1]. The dataset used for this study was partitioned using an 80/20 train-test split, and hyperparameter grid search was performed over C ∈{0.01,0.1,1} (sparse) for model training, as described in the document PAN2025.pdf [2].",
+      "sources": [
+        {
+          "chunk_index": 3,
+          "doc_id": "5b1d14d3-daf8-417e-b1c1-a73e3dfb6608",
+          "filename": "PAN2025_Assignment_2.pdf",
+          "relevance_score": 0.6655,
+          "text": "andcompositeevaluationmetric(combiningAUC,Brier score, F1, F0.5u, and c@1) to ensure a direct and fair comparison, evaluating whether the added complexity Model CVScore TestScore and computational cost of deep neural models yield LR+Word2Vec(Baseline) 0.7724 - meaningfulperformancegains. LSTM(fromscratch) 0.8419 0.8382 BERT(fine-tuned) 0.9036 0.8281 2 Methodology Table1: Overallperformancecomparisononthecom- positemetric.",
+          "web_source": ""
+        },
+        {
+          "chunk_index": 2,
+          "doc_id": "692a9ba4-9918-4338-9f40-24dc2485d1ec",
+          "filename": "PAN2025.pdf",
+          "relevance_score": 0.6614,
+          "text": "tiveAIDetectionsharedtask(Subtask1),introducedinBeven- dorffetal.[1].Thegoalisbinaryclassification:givenapassage oftext,determinewhetheritwaswrittenbyahuman(src)or Evaluation protocol. All model selection uses 5-Fold generated/substantiallyeditedbyanAImodel(susp). Stratified Cross-Validation (StratifiedKFold, shuffle=True, random_state=42). Following the PAN2025officialscoringscheme,theprimaryoptimisation Dataset. We use the official PAN 2025 training corpus re- metricisacompositescore: leasedviaZenodo(OptionA–EstablishedSharedTask). The originaldatasetcomprisedthousandsofentries,eachcontaining extensivedocuments. Amanualstratifiedsubsetwascreated Score= 1(cid:0) AUC+(1−Brier)+F +F +c@1 (cid:1) 5 1 0.5u forthepresentstudyinordertoenhancedatamanageability andreducecomputationaltimeandresourcerequirements.Sub- wherec@1rewardsabstentionwhenthesystemisgenuinelyun- sequently,thedatasetwaspartitionedusingan80/20train–test certain(uncertainband±0.05aroundθ=0.5)[2].Hyperparam- split,where80%ofthedatawasallocatedformodeltraining etergridsearchisperformedoverC ∈{0.01,0.1,1}(sparse) and20%wasreservedforfinaltesting.",
+          "web_source": ""
+        },
+        {
+          "chunk_index": 1,
+          "doc_id": "5b1d14d3-daf8-417e-b1c1-a73e3dfb6608",
+          "filename": "PAN2025_Assignment_2.pdf",
+          "relevance_score": 0.6463,
+          "text": "withaLogisticRegressionclassifier,achievingastrong baselinecompositescoreof0.910onthetestset.",
+          "web_source": ""
+        },
+        {
+          "chunk_index": 11,
+          "doc_id": "692a9ba4-9918-4338-9f40-24dc2485d1ec",
+          "filename": "PAN2025.pdf",
+          "relevance_score": 0.6398,
+          "text": "4 Error Analysis donotgeneralisetoscientificsub-disciplines,whereAI- generatedandhumantextsharethesamevocabularyand 4.1 ConfusionMatrix(Sparse) jargon.",
+          "web_source": ""
+        },
+        {
+          "chunk_index": 24,
+          "doc_id": "692a9ba4-9918-4338-9f40-24dc2485d1ec",
+          "filename": "PAN2025.pdf",
+          "relevance_score": 0.6373,
+          "text": "4.3 QualitativeFailureAnalysis Thefivemisclassifiedexamplesretrievedfromthetestset(all False Negatives: true susp predicted as src) are reported below: 1. “Constrainingnuclearstarclusterformationusing...”– Cause: specialisedastrophysicsvocabulary. Thetextis highlytechnicalanddomain-specific;themodel’sfeatures 2",
+          "web_source": ""
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "question": "What was the data split por the task?",
+      "expected_answer": "The data split was 80% of the data for train and 20% for test.",
+      "source_doc": "PAN2025.pdf",
+      "source_passage": "Subsequently, the dataset was partitioned using an 80/20 train–test split, where 80% of the data was allocated for model training and 20% was reserved for final testing.",
+      "generated_answer": "The data split for the task was performed with 80% of the data allocated for model training and 20% reserved for final testing, as stated in [5]. The split was done using an 80/20 train-test split, and it was performed with stratify=y and random_state=42, as mentioned in [1].",
+      "sources": [
+        {
+          "chunk_index": 4,
+          "doc_id": "692a9ba4-9918-4338-9f40-24dc2485d1ec",
+          "filename": "PAN2025.pdf",
+          "relevance_score": 0.6903,
+          "text": "Split susp src Reduceddataset 1,929 1,891 3 Experiments & Results Train(80%) 1,544 1,513 Test(20%) 385 378 3.1 N-gramAblation The split was performed with stratify=y and random_state=42, guaranteeing reproducibility and Model Features CVScore classbalanceinbothpartitions.",
+          "web_source": ""
+        },
+        {
+          "chunk_index": 4,
+          "doc_id": "5b1d14d3-daf8-417e-b1c1-a73e3dfb6608",
+          "filename": "PAN2025_Assignment_2.pdf",
+          "relevance_score": 0.6859,
+          "text": "Dataset&Preprocessing. Forthisassignment,asbig- germodelsarebeingtrained,wedecidedtousethecom- ItcanbeobservedhowbothBERTandtheLSTMmodels pletedatasetincreasingthenumberofexamples.Inorder easilyoutperformedthebaselinemodel,withBERTeven tobeabletohandleallthedata,wedecidedtotruncate achievingover0.9intheCVscore.",
+          "web_source": ""
+        },
+        {
+          "chunk_index": 11,
+          "doc_id": "692a9ba4-9918-4338-9f40-24dc2485d1ec",
+          "filename": "PAN2025.pdf",
+          "relevance_score": 0.6434,
+          "text": "4 Error Analysis donotgeneralisetoscientificsub-disciplines,whereAI- generatedandhumantextsharethesamevocabularyand 4.1 ConfusionMatrix(Sparse) jargon.",
+          "web_source": ""
+        },
+        {
+          "chunk_index": 12,
+          "doc_id": "692a9ba4-9918-4338-9f40-24dc2485d1ec",
+          "filename": "PAN2025.pdf",
+          "relevance_score": 0.6425,
+          "text": "2. “Multi-CoreProcessorSchedulingwithRespectto...” – The confusion matrix for the best sparse model (TF-IDF bi- Cause: formalcomputer-scienceterminology. Computer- grams,C={best},testset)isshowninFigure1. Thedomi- systempapersusedry,formaltextthatoverlapsstrongly nanterrorisFalseNegatives: AI-generatedtextsmisclassified with AI-generated text patterns. This is a domain- as human-written. This gap is consistent with the literature: ambiguityfailure.",
+          "web_source": ""
+        },
+        {
+          "chunk_index": 2,
+          "doc_id": "692a9ba4-9918-4338-9f40-24dc2485d1ec",
+          "filename": "PAN2025.pdf",
+          "relevance_score": 0.6316,
+          "text": "tiveAIDetectionsharedtask(Subtask1),introducedinBeven- dorffetal.[1].Thegoalisbinaryclassification:givenapassage oftext,determinewhetheritwaswrittenbyahuman(src)or Evaluation protocol. All model selection uses 5-Fold generated/substantiallyeditedbyanAImodel(susp). Stratified Cross-Validation (StratifiedKFold, shuffle=True, random_state=42). Following the PAN2025officialscoringscheme,theprimaryoptimisation Dataset. We use the official PAN 2025 training corpus re- metricisacompositescore: leasedviaZenodo(OptionA–EstablishedSharedTask). The originaldatasetcomprisedthousandsofentries,eachcontaining extensivedocuments. Amanualstratifiedsubsetwascreated Score= 1(cid:0) AUC+(1−Brier)+F +F +c@1 (cid:1) 5 1 0.5u forthepresentstudyinordertoenhancedatamanageability andreducecomputationaltimeandresourcerequirements.Sub- wherec@1rewardsabstentionwhenthesystemisgenuinelyun- sequently,thedatasetwaspartitionedusingan80/20train–test certain(uncertainband±0.05aroundθ=0.5)[2].Hyperparam- split,where80%ofthedatawasallocatedformodeltraining etergridsearchisperformedoverC ∈{0.01,0.1,1}(sparse) and20%wasreservedforfinaltesting.",
+          "web_source": ""
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "question": "Did adding bigrams improve the score?",
+      "expected_answer": "Yes, adding biframs improved the score by 1.7 points.",
+      "source_doc": "PAN2025.pdf",
+      "source_passage": "Adding bigrams improves the composite score by +1.7 points, confirming that short phrasal patterns (e.g. notably, geq, leq) are discriminative cues between AI and human text.",
+      "generated_answer": "Based on the provided context, the comparison between TF-IDF with unigrams and bigrams (Word2Vec with avg) is given in the first document (PAN2025.pdf). The TestScore for TF-IDF with unigrams is 0.856, and for Word2Vec with bigrams, it is 0.910. Since the TestScore for Word2Vec with bigrams is higher than that of TF-IDF with unigrams, it can be inferred that adding bigrams improved the score.\n\nReference:\n[1] LOCAL DOCUMENT: PAN2025.pdf\nTEXT EXCERPT:\n• Sparse (TF-IDF). Unigrams n=(1,1) and bigrams Word2Vec(avg) LR 0.879 0.910 n=(1,2) with min_df=3, max_df=0.9 and max_features=5000 (bigram model only to Dense embeddings obtain a +5.4points absolute advantage prevent excessive memory consumption).",
+      "sources": [
+        {
+          "chunk_index": 8,
+          "doc_id": "692a9ba4-9918-4338-9f40-24dc2485d1ec",
+          "filename": "PAN2025.pdf",
+          "relevance_score": 0.6505,
+          "text": "3.2 Sparsevs.Dense Feature representations. Two complementary paradigms Representation Model CVScore TestScore arecompared: TF-IDF(1,2) LR 0.862 0.856 • Sparse (TF-IDF). Unigrams n=(1,1) and bigrams Word2Vec(avg) LR 0.879 0.910 n=(1,2) with min_df=3, max_df=0.9 and max_features=5000 (bigram model only to Dense embeddings obtain a +5.4points absolute advantage prevent excessive memory consumption). Classifier: on the held-out test set. The in-domain Word2Vec model LogisticRegressionwithregularisationstrengthC tuned capturessemanticregularitiesthatTF-IDFcannotencode(e.g.",
+          "web_source": ""
+        },
+        {
+          "chunk_index": 3,
+          "doc_id": "5b1d14d3-daf8-417e-b1c1-a73e3dfb6608",
+          "filename": "PAN2025_Assignment_2.pdf",
+          "relevance_score": 0.6447,
+          "text": "andcompositeevaluationmetric(combiningAUC,Brier score, F1, F0.5u, and c@1) to ensure a direct and fair comparison, evaluating whether the added complexity Model CVScore TestScore and computational cost of deep neural models yield LR+Word2Vec(Baseline) 0.7724 - meaningfulperformancegains. LSTM(fromscratch) 0.8419 0.8382 BERT(fine-tuned) 0.9036 0.8281 2 Methodology Table1: Overallperformancecomparisononthecom- positemetric.",
+          "web_source": ""
+        },
+        {
+          "chunk_index": 2,
+          "doc_id": "692a9ba4-9918-4338-9f40-24dc2485d1ec",
+          "filename": "PAN2025.pdf",
+          "relevance_score": 0.6379,
+          "text": "tiveAIDetectionsharedtask(Subtask1),introducedinBeven- dorffetal.[1].Thegoalisbinaryclassification:givenapassage oftext,determinewhetheritwaswrittenbyahuman(src)or Evaluation protocol. All model selection uses 5-Fold generated/substantiallyeditedbyanAImodel(susp). Stratified Cross-Validation (StratifiedKFold, shuffle=True, random_state=42). Following the PAN2025officialscoringscheme,theprimaryoptimisation Dataset. We use the official PAN 2025 training corpus re- metricisacompositescore: leasedviaZenodo(OptionA–EstablishedSharedTask). The originaldatasetcomprisedthousandsofentries,eachcontaining extensivedocuments. Amanualstratifiedsubsetwascreated Score= 1(cid:0) AUC+(1−Brier)+F +F +c@1 (cid:1) 5 1 0.5u forthepresentstudyinordertoenhancedatamanageability andreducecomputationaltimeandresourcerequirements.Sub- wherec@1rewardsabstentionwhenthesystemisgenuinelyun- sequently,thedatasetwaspartitionedusingan80/20train–test certain(uncertainband±0.05aroundθ=0.5)[2].Hyperparam- split,where80%ofthedatawasallocatedformodeltraining etergridsearchisperformedoverC ∈{0.01,0.1,1}(sparse) and20%wasreservedforfinaltesting.",
+          "web_source": ""
+        },
+        {
+          "chunk_index": 18,
+          "doc_id": "5b1d14d3-daf8-417e-b1c1-a73e3dfb6608",
+          "filename": "PAN2025_Assignment_2.pdf",
+          "relevance_score": 0.6304,
+          "text": "theradiosignal...\" • \"UnsupervisedLocalDiscriminationforMedical 4 Conclusions Images...\" While the baseline likely struggled with these due to The transition from sparse/dense linear baselines to thepresenceofdomain-specificjargon(finance, astro- neuralsequencemodelsrevealsaclassicperformance- physics,medicalimaging)thatoverlapswithhumanaca- efficiency trade-off. Fine-tuning a pre-trained Trans- demic writing, BERT’s self-attention mechanism suc- former (BERT) yields the highest classification score, cessfully identified subtle, long-range stylistic depen- successfully overcoming complex domain-shift errors dencies. For instance, the systematic use of complex presentinourAssignment1baseline. However,training connectivestructures(e.g.,\"Furthermore,basedonLD, an LSTM from scratch proved less competitive, con- we propose...\" or \"Specifically, this model is equipped strainedbydatasetsizeandtrainingtime.",
+          "web_source": ""
+        },
+        {
+          "chunk_index": 5,
+          "doc_id": "5b1d14d3-daf8-417e-b1c1-a73e3dfb6608",
+          "filename": "PAN2025_Assignment_2.pdf",
+          "relevance_score": 0.6164,
+          "text": "thetextlenghthofeachexample,insteadofreducingthe numberofexamplesasinAssignment1. Wepreserve the80/20train-testsplitasinAssignment1,containing 3.2 LearningCurveAnalysis academictextclassifiedashuman-written(src)orAI- generated(susp). Textislowercased,lemmatised,and Tounderstanddataefficiency, modelsweretrainedon stripped of non-alphabetic characters and NLTK stop- 25%,50%,75%,and100%ofthetrainingdata.",
+          "web_source": ""
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "question": "What was the architecture of the tested LSTM?",
+      "expected_answer": "The LSTM had an embedding layer of dimension 100, a Long Short-Term Memory network (hidden_dim=128), and a fully connected classification head.",
+      "source_doc": "PAN2025_Assignment_2.pdf",
+      "source_passage": "Recurrent Model (LSTM): A custom PyTorch implementation featuring an embedding layer (dim=100), a Long Short-Term Memory network (hidden_dim=128), and a fully connected classification head.",
+      "generated_answer": "The context does not provide specific details about the architecture of the LSTM model that was tested. However, it is mentioned that it is a custom Recurrent Neural Network (RNN) model trained from scratch using PyTorch [1].",
       "sources": [
         {
           "chunk_index": 2,
-          "doc_id": "5fbb2a53-8733-4c7f-9505-64d8666d3ae6",
+          "doc_id": "5b1d14d3-daf8-417e-b1c1-a73e3dfb6608",
+          "filename": "PAN2025_Assignment_2.pdf",
+          "relevance_score": 0.7707,
+          "text": "3 Experiments & Results Inthisassignment,weimplementandevaluatetwoneu- ralsequencearchitectures: acustomRecurrentNeural Network(LSTM)trainedfromscratch,andafine-tuned 3.1 ArchitectureComparison Transformer(bert-base-uncased). Werigorously Table 1 details the direct comparison between our As- maintainthesamedatasetsplit,preprocessingconstraints, signment1baselineandthetwoneuralarchitectures.",
+          "web_source": ""
+        },
+        {
+          "chunk_index": 7,
+          "doc_id": "5b1d14d3-daf8-417e-b1c1-a73e3dfb6608",
+          "filename": "PAN2025_Assignment_2.pdf",
+          "relevance_score": 0.7283,
+          "text": "As observed in Figure 1, the fine-tuned BERT model demonstrates strong performance even at lower data NeuralArchitectures. Weimplementtwodistinctneu- regimes(25%)duetoitspre-trainedknowledge. Con- ralparadigms: versely, the LSTM requires significantly more data to approachbertperformance,confirmingthattrainingre- • Recurrent Model (LSTM): A custom PyTorch currentmodelsfromscratchisdata-hungry.",
+          "web_source": ""
+        },
+        {
+          "chunk_index": 16,
+          "doc_id": "692a9ba4-9918-4338-9f40-24dc2485d1ec",
           "filename": "PAN2025.pdf",
-          "relevance_score": 0.6786,
-          "text": "025 training corpus re-\nmetricisacompositescore:\nleasedviaZenodo(OptionA–EstablishedSharedTask). Theoriginaldatasetcomprisedthousandsofentries,eachcontaining\nextensivedocuments. Amanualstratifiedsubsetwascreated Score= 1(cid:0) AUC+(1−Brier)+F +F +c@1 (cid:1)\n5 1 0.5u\nforthepresentstudyinordertoenhancedatamanageability\nandreducecomputationaltimeandresourcerequirements.Sub-\nwherec@1rewardsabstentionwhenthesystemisgenuinelyun-\nsequently,thedatasetwaspartitionedusingan80/20train–test\ncertain(uncertainband±0.05aroundθ=0.5)[2].Hyperparam-\nsplit,where80%ofthedatawasallocatedformodeltraining"
+          "relevance_score": 0.7277,
+          "text": "5. “ABi-EncoderLSTMModelForLearningUnstruc- tured...” –Cause: mixofdeep-learningjargonandcom- pressedwriting. Thepresenceofabbreviationsandmodel names (“LSTM”, “Bi-Encoder”) may cause the LR to misinterpretthesource,likelybecausesuchterminology co-occurswithAI-generatedcontentinthetrainingdata.",
+          "web_source": ""
+        },
+        {
+          "chunk_index": 11,
+          "doc_id": "5b1d14d3-daf8-417e-b1c1-a73e3dfb6608",
+          "filename": "PAN2025_Assignment_2.pdf",
+          "relevance_score": 0.7046,
+          "text": "• \"LinearBoltzmann-likeequation... describingnon- Figure1: Performancevs. TrainingSizeforBaseline, classicalparticletransport...\" LSTM,andBERT.",
+          "web_source": ""
+        },
+        {
+          "chunk_index": 16,
+          "doc_id": "5b1d14d3-daf8-417e-b1c1-a73e3dfb6608",
+          "filename": "PAN2025_Assignment_2.pdf",
+          "relevance_score": 0.6898,
+          "text": "We isolated test examples where the neural models (specifically the fine-tuned BERT) diverged from the Assignment 1 baseline to understand their qualitative Model Params Train(s) Inf.(ex/s) GPU(MB) behavior: LR+W2V ∼10K <10 VeryHigh 0 LSTM 19,421,234 2130.51 534.52 ∼450 BERT 109,483,778 9825.34 143.65 ∼3500 FixedbyNeuralModels: TheBERTmodeldemon- strated a superior ability to correctly classify AI- Table2: Computationalcostacrossarchitectures.",
+          "web_source": ""
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "question": "How much data did the LSTM need to reach bert performance?",
+      "expected_answer": "The LSTM requires significantly more data to approach bert performance",
+      "source_doc": "PAN2025_Assignment_2.pdf",
+      "source_passage": "Conversely, the LSTM requires significantly more data to approach bert performance, confirming that training recurrent models from scratch is data-hungry.",
+      "generated_answer": "The text excerpt [2] states that the LSTM requires significantly more data to approach BERT performance. However, the exact amount of data required is not specified in the provided context.",
+      "sources": [
+        {
+          "chunk_index": 7,
+          "doc_id": "5b1d14d3-daf8-417e-b1c1-a73e3dfb6608",
+          "filename": "PAN2025_Assignment_2.pdf",
+          "relevance_score": 0.8778,
+          "text": "As observed in Figure 1, the fine-tuned BERT model demonstrates strong performance even at lower data NeuralArchitectures. Weimplementtwodistinctneu- regimes(25%)duetoitspre-trainedknowledge. Con- ralparadigms: versely, the LSTM requires significantly more data to approachbertperformance,confirmingthattrainingre- • Recurrent Model (LSTM): A custom PyTorch currentmodelsfromscratchisdata-hungry.",
+          "web_source": ""
+        },
+        {
+          "chunk_index": 3,
+          "doc_id": "5b1d14d3-daf8-417e-b1c1-a73e3dfb6608",
+          "filename": "PAN2025_Assignment_2.pdf",
+          "relevance_score": 0.7787,
+          "text": "andcompositeevaluationmetric(combiningAUC,Brier score, F1, F0.5u, and c@1) to ensure a direct and fair comparison, evaluating whether the added complexity Model CVScore TestScore and computational cost of deep neural models yield LR+Word2Vec(Baseline) 0.7724 - meaningfulperformancegains. LSTM(fromscratch) 0.8419 0.8382 BERT(fine-tuned) 0.9036 0.8281 2 Methodology Table1: Overallperformancecomparisononthecom- positemetric.",
+          "web_source": ""
+        },
+        {
+          "chunk_index": 16,
+          "doc_id": "5b1d14d3-daf8-417e-b1c1-a73e3dfb6608",
+          "filename": "PAN2025_Assignment_2.pdf",
+          "relevance_score": 0.771,
+          "text": "We isolated test examples where the neural models (specifically the fine-tuned BERT) diverged from the Assignment 1 baseline to understand their qualitative Model Params Train(s) Inf.(ex/s) GPU(MB) behavior: LR+W2V ∼10K <10 VeryHigh 0 LSTM 19,421,234 2130.51 534.52 ∼450 BERT 109,483,778 9825.34 143.65 ∼3500 FixedbyNeuralModels: TheBERTmodeldemon- strated a superior ability to correctly classify AI- Table2: Computationalcostacrossarchitectures.",
+          "web_source": ""
+        },
+        {
+          "chunk_index": 18,
+          "doc_id": "5b1d14d3-daf8-417e-b1c1-a73e3dfb6608",
+          "filename": "PAN2025_Assignment_2.pdf",
+          "relevance_score": 0.7668,
+          "text": "theradiosignal...\" • \"UnsupervisedLocalDiscriminationforMedical 4 Conclusions Images...\" While the baseline likely struggled with these due to The transition from sparse/dense linear baselines to thepresenceofdomain-specificjargon(finance, astro- neuralsequencemodelsrevealsaclassicperformance- physics,medicalimaging)thatoverlapswithhumanaca- efficiency trade-off. Fine-tuning a pre-trained Trans- demic writing, BERT’s self-attention mechanism suc- former (BERT) yields the highest classification score, cessfully identified subtle, long-range stylistic depen- successfully overcoming complex domain-shift errors dencies. For instance, the systematic use of complex presentinourAssignment1baseline. However,training connectivestructures(e.g.,\"Furthermore,basedonLD, an LSTM from scratch proved less competitive, con- we propose...\" or \"Specifically, this model is equipped strainedbydatasetsizeandtrainingtime.",
+          "web_source": ""
         },
         {
           "chunk_index": 2,
-          "doc_id": "263ab666-d038-4a59-943c-bc7b56bca1b5",
-          "filename": "PAN2025.pdf",
-          "relevance_score": 0.6786,
-          "text": "025 training corpus re-\nmetricisacompositescore:\nleasedviaZenodo(OptionA–EstablishedSharedTask). Theoriginaldatasetcomprisedthousandsofentries,eachcontaining\nextensivedocuments. Amanualstratifiedsubsetwascreated Score= 1(cid:0) AUC+(1−Brier)+F +F +c@1 (cid:1)\n5 1 0.5u\nforthepresentstudyinordertoenhancedatamanageability\nandreducecomputationaltimeandresourcerequirements.Sub-\nwherec@1rewardsabstentionwhenthesystemisgenuinelyun-\nsequently,thedatasetwaspartitionedusingan80/20train–test\ncertain(uncertainband±0.05aroundθ=0.5)[2].Hyperparam-\nsplit,where80%ofthedatawasallocatedformodeltraining"
-        },
-        {
-          "chunk_index": 12,
-          "doc_id": "5fbb2a53-8733-4c7f-9505-64d8666d3ae6",
-          "filename": "PAN2025.pdf",
-          "relevance_score": 0.6521,
-          "text": "ughcol-\nsusp(AI) geq,expressed,thereby,leq, locationalpatterns. Erroranalysisrevealsthatfailuremodesequation,additionally,exhibit, areconcentratedinhighlyspecialised,notation-richdomains\nwithin,notably,quad where AI and human writing converge. Future work should\nsrc(Human) displaystyle,show,see,ie, explorefine-tunedtransformerencoders(e.g.BERT)andsty-\nhence,use,therefore,different, lometricfeatures(sentence-lengthdistribution,function-word\nused,fig profiles)toaddressdomain-shiftfailures.\nInterpretation. TheAI-classfeatures(notably,additionally, References"
-        },
-        {
-          "chunk_index": 12,
-          "doc_id": "263ab666-d038-4a59-943c-bc7b56bca1b5",
-          "filename": "PAN2025.pdf",
-          "relevance_score": 0.6521,
-          "text": "ughcol-\nsusp(AI) geq,expressed,thereby,leq, locationalpatterns. Erroranalysisrevealsthatfailuremodesequation,additionally,exhibit, areconcentratedinhighlyspecialised,notation-richdomains\nwithin,notably,quad where AI and human writing converge. Future work should\nsrc(Human) displaystyle,show,see,ie, explorefine-tunedtransformerencoders(e.g.BERT)andsty-\nhence,use,therefore,different, lometricfeatures(sentence-lengthdistribution,function-word\nused,fig profiles)toaddressdomain-shiftfailures.\nInterpretation. TheAI-classfeatures(notably,additionally, References"
-        },
-        {
-          "chunk_index": 5,
-          "doc_id": "5fbb2a53-8733-4c7f-9505-64d8666d3ae6",
-          "filename": "PAN2025.pdf",
-          "relevance_score": 0.6477,
-          "text": "ure representations. Two complementary paradigms\nRepresentation Model CVScore TestScore\narecompared:TF-IDF(1,2) LR 0.862 0.856\n• Sparse (TF-IDF). Unigrams n=(1,1) and bigrams Word2Vec(avg) LR 0.879 0.910\nn=(1,2) with min_df=3, max_df=0.9 and\nmax_features=5000 (bigram model only to Dense embeddings obtain a +5.4points absolute advantage\nprevent excessive memory consumption). Classifier: on the held-out test set. The in-domain Word2Vec model\nLogisticRegressionwithregularisationstrengthC tuned capturessemanticregularitiesthatTF-IDFcannotencode(e.g."
-        },
-        {
-          "chunk_index": 5,
-          "doc_id": "263ab666-d038-4a59-943c-bc7b56bca1b5",
-          "filename": "PAN2025.pdf",
-          "relevance_score": 0.6477,
-          "text": "ure representations. Two complementary paradigms\nRepresentation Model CVScore TestScore\narecompared:TF-IDF(1,2) LR 0.862 0.856\n• Sparse (TF-IDF). Unigrams n=(1,1) and bigrams Word2Vec(avg) LR 0.879 0.910\nn=(1,2) with min_df=3, max_df=0.9 and\nmax_features=5000 (bigram model only to Dense embeddings obtain a +5.4points absolute advantage\nprevent excessive memory consumption). Classifier: on the held-out test set. The in-domain Word2Vec model\nLogisticRegressionwithregularisationstrengthC tuned capturessemanticregularitiesthatTF-IDFcannotencode(e.g."
-        },
-        {
-          "chunk_index": 13,
-          "doc_id": "f2d14099-5f5d-4914-bd26-a8c39ac9f787",
-          "filename": "Fraudulent_Transaction_Detection.pdf",
-          "relevance_score": 0.6437,
-          "text": "nd facilitated collaborative analysis.\nFigure 1: MLflow dashboard showing multiple experiment runs\n3(a) XGBoost Feature Importance (b) TabNet Feature Importance\nFigure 2: Feature importance graphs\n7 Results and Model Comparison\nAcross all experiments, XGBoost consistently achieved higher PR-AUC, Precision, Recall and\nF1-score than TabNet, while also requiring significantly less training time and computational\nresources.\nTable 1: Model performance comparison\nModel PR-AUC Precision Recall F1-score\nXGBoost 0.98 1.00 0.96 0.98\nTabNet 0.98 0.98 0.95 0.96\n8 Threshold Optimization"
-        },
-        {
-          "chunk_index": 1,
-          "doc_id": "5fbb2a53-8733-4c7f-9505-64d8666d3ae6",
-          "filename": "PAN2025.pdf",
-          "relevance_score": 0.6425,
-          "text": "ght-KampffGenera- search(C ∈{0.01,0.1,1,10}).\ntiveAIDetectionsharedtask(Subtask1),introducedinBeven-dorffetal.[1].Thegoalisbinaryclassification:givenapassage\noftext,determinewhetheritwaswrittenbyahuman(src)or Evaluation protocol. All model selection uses 5-Fold\ngenerated/substantiallyeditedbyanAImodel(susp). Stratified Cross-Validation (StratifiedKFold,\nshuffle=True, random_state=42). Following the\nPAN2025officialscoringscheme,theprimaryoptimisation\nDataset. We use the official PAN 2025 training corpus re-\nmetricisacompositescore:\nleasedviaZenodo(OptionA–EstablishedSharedTask). The"
-        },
-        {
-          "chunk_index": 1,
-          "doc_id": "263ab666-d038-4a59-943c-bc7b56bca1b5",
-          "filename": "PAN2025.pdf",
-          "relevance_score": 0.6425,
-          "text": "ght-KampffGenera- search(C ∈{0.01,0.1,1,10}).\ntiveAIDetectionsharedtask(Subtask1),introducedinBeven-dorffetal.[1].Thegoalisbinaryclassification:givenapassage\noftext,determinewhetheritwaswrittenbyahuman(src)or Evaluation protocol. All model selection uses 5-Fold\ngenerated/substantiallyeditedbyanAImodel(susp). Stratified Cross-Validation (StratifiedKFold,\nshuffle=True, random_state=42). Following the\nPAN2025officialscoringscheme,theprimaryoptimisation\nDataset. We use the official PAN 2025 training corpus re-\nmetricisacompositescore:\nleasedviaZenodo(OptionA–EstablishedSharedTask). The"
-        },
-        {
-          "chunk_index": 20,
-          "doc_id": "f2d14099-5f5d-4914-bd26-a8c39ac9f787",
-          "filename": "Fraudulent_Transaction_Detection.pdf",
-          "relevance_score": 0.6424,
-          "text": "components and the\nreliability of the complete system in production.\n13 Monitoring and ObservabilityAproxywascreatedtoconnecttheRenderserverwithlocalPrometheusandGrafanainstances.\nAlthough this setup allowed us to monitor certain internal metrics, such as CPU usage, the\ncustom metrics described below were not accessible. Therefore, an additional simulation was\nconducted using a local API server.\n13.1 Data Drift Detection\nData drift is monitored using the Population Stability Index (PSI). Baseline distributions are"
+          "doc_id": "5b1d14d3-daf8-417e-b1c1-a73e3dfb6608",
+          "filename": "PAN2025_Assignment_2.pdf",
+          "relevance_score": 0.7495,
+          "text": "3 Experiments & Results Inthisassignment,weimplementandevaluatetwoneu- ralsequencearchitectures: acustomRecurrentNeural Network(LSTM)trainedfromscratch,andafine-tuned 3.1 ArchitectureComparison Transformer(bert-base-uncased). Werigorously Table 1 details the direct comparison between our As- maintainthesamedatasetsplit,preprocessingconstraints, signment1baselineandthetwoneuralarchitectures.",
+          "web_source": ""
         }
       ]
     }
